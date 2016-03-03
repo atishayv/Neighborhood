@@ -1,0 +1,62 @@
+<ion-content class="feedsViewCls" scroll="false">
+	
+	<ion-scroll direction="y" style="height: 100%;">
+	
+	<div class="timelinePanelCls">
+		<ul class="tab-nav tn-justified" tabindex="1">
+   		   <li onclick="Neighborhood.app.getController(\'MainController\').changePostAreaFormat(this,\'Feeds\')" class="active waves-effect"><span>Post feed</span></li> 
+   		   <li onclick="Neighborhood.app.getController(\'MainController\').changePostAreaFormat(this,\'Issue\')" class="waves-effect"><span>Raise society issue</span></li> 
+   		   <li onclick="Neighborhood.app.getController(\'MainController\').changePostAreaFormat(this,\'Question\')" class="waves-effect"><span>Ask a question</span></li> 
+   		   <li onclick="Neighborhood.app.getController(\'MainController\').changePostAreaFormat(this,\'Info\')" class="waves-effect"><span>Provide information</span></li>
+   		   </ul>
+  		   
+  		   <div class="quick-update">
+  		   			<textarea rows="1" class="form-control title" style="display:none;" placeholder="Write a topic..."></textarea>
+				<textarea rows="6" class="form-control desc" placeholder="Type Something..."></textarea>
+				<div class="qu-buttons">
+					<div class="pull-left">
+						<a href="#"><i class="fa fa-paperclip"></i></a> &nbsp;
+						<a href="#"><i class="fa fa-camera"></i></a> &nbsp;
+						<a href="#"><i class="fa fa-film"></i></a>
+					</div>
+					<div class="pull-right">
+						<button class="btn btn-info btn-xs">Submit</button>  <button class="btn btn-default btn-xs">Reset</button>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+  		   
+  		   <div class="timeline" id="timelinePostId">
+  		   		<div class="tl-header now">Now</div>
+  		   		<div ng-repeat="data in timeline_data">
+  		   			<div class="tl-entry">
+						<div class="tl-time">{{data.time}}</div>	<!-- post time -->
+						<div class="tl-icon bg-success">
+							<img ng-src="{{data.userPic}}" alt="">		<!-- post user pic -->
+						</div>
+						<div class="panel tl-body">
+							<h4 class="text-warning" ng-if="data.title!=''">{{data.title}}</h4>	<!-- post title -->
+							{{data.description}}
+							
+							<div class="tl-wide text-center" ng-if="data.imageUrl!=''" style="padding: 10px;margin-top:15px;margin-bottom: 15px;background: #f1f1f1;">	 <!-- post image -->
+								<img ng-src="{{data.imageUrl}}" alt="" style="max-height: 150px;max-width: 100%;">
+							</div>
+							
+							<i class="text-muted text-sm" ng-if="data.imageComment!=''">{{data.imageComment}}</i>	 	<!-- post image comments -->
+							
+							<!-- comments section -->
+							<div ng-if="data.commentsArr && data.commentsArr.length>0" style="margin-top: 10px;" class="text-sm">
+								<img ng-src="{{data.commentsArr[0].user_pic}}" alt="" class="rounded" style=" width: 20px;height: 20px;margin-top: -2px;">&nbsp;&nbsp;  	<!-- commented user pic -->
+								<a>{{data.commentsArr[0].user_name}}</a> commented {{data.commentsArr[0].time}}			<!-- commented user time and name -->
+								<div class="well well-sm" style="margin: 6px 0 0 0;">{{data.commentsArr[0].commentText}}  <!-- actual comment -->
+								</div>
+							</div>
+							
+						</div>
+					</div>
+		   		</div>
+  		   </div>
+	</div>
+
+	</ion-scroll>
+</ion-content>

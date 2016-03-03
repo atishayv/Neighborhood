@@ -1,0 +1,39 @@
+.contactViewCls{
+	background: white;
+	padding: 3%;
+}
+.contactViewCls .contactPanelCls .wrapper{
+	padding: 20px 10px 40px;
+}
+.contactViewCls .contactPanelCls .wrapper .row .col-lg-4{
+    height: 250px;
+    margin-bottom: 20px;
+}
+.contactViewCls .contactPanelCls .wrapper .row .contact-box{
+	background-color: #ffffff;
+    border: 1px solid #e7eaec;
+    padding: 20px;
+    height: 100%;
+}
+.contactViewCls .contactPanelCls .wrapper .row .contact-box:hover{
+    -webkit-animation-name: pulse;
+    animation-name: pulse;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    z-index: 100;
+}
+.contactViewCls .contactPanelCls .wrapper .row .contact-box a{
+	color : inherit;
+}
+.contactViewCls .contactPanelCls .wrapper .row .contact-box .m-t-xs{
+    margin-top: 5px;
+}
+.contactViewCls .contactPanelCls .wrapper .row .contact-box .col-sm-8 h3{
+    margin-top: 5px;
+    font-weight: 600;
+}
+.contactViewCls .contactPanelCls .wrapper .row .contact-box .col-sm-8 address{
+    font-size: 12px;
+}

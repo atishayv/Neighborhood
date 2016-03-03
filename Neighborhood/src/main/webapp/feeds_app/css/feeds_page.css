@@ -1,0 +1,175 @@
+.feedsViewCls{
+    padding: 3%;
+}
+.feedsViewCls .timeline{
+	position: relative;
+    padding-bottom: 30px;
+    margin-bottom: 20px;
+}
+.feedsViewCls .quick-update{
+    background: #fff;
+    border-radius: 4px;
+    width: 80%;
+    height: 180px;
+    margin: 0 auto;
+    margin-bottom: 45px !important;	
+}
+.feedsViewCls .tab-nav{
+	outline: none;
+    list-style: none;
+    padding: 0;
+    white-space: nowrap;
+    margin: 0 auto;
+    width : 80%;
+    overflow: hidden;
+    box-shadow: inset 0 -2px 0 0 #eeeeee;
+}
+.feedsViewCls .tab-nav .waves-effect{
+    display: table-cell;
+    width: 1%;
+    text-align: center;
+    vertical-align: top;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;	
+}
+.feedsViewCls .tab-nav .waves-effect.active{
+	border-bottom: 1px solid purple;
+}
+.feedsViewCls .tab-nav .waves-effect span{
+	    padding: 15px;
+    display: inline-block;
+    color: #7a7a7a;
+    position: relative;
+    width: 100%;
+    -webkit-transition: all;
+    -o-transition: all;
+    transition: all;
+    -webkit-transition-duration: 250ms;
+    transition-duration: 250ms;
+    font-weight: 500;
+}
+.feedsViewCls .tab-nav .waves-effect span:after{
+	content: "";
+    height: 2px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    -webkit-transition: all;
+    -o-transition: all;
+    transition: all;
+    -webkit-transition-duration: 250ms;
+    transition-duration: 250ms;
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
+}
+.feedsViewCls .quick-update textarea{
+    border-radius: 0px;
+    border: 0 !important;
+    font-size: 12px !important;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom: 1px solid #ddd !important;	
+}
+.feedsViewCls .quick-update .qu-buttons{
+    padding: 7px 10px;
+    background: #fafafa;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;	
+    border: 1px solid #ddd !important;
+}
+.feedsViewCls .quick-update .qu-buttons a{
+    margin-right: 3px;
+    color: #888;
+    text-decoration: none !important;	
+}
+.feedsViewCls .quick-update .qu-buttons button{
+    background: #47b6ca;
+    color: #fff !important;
+    border: 1px solid #50b9cc !important;	
+}
+.feedsViewCls .timeline:before{
+	background: #ddd;
+	left: 100px;
+	width: 4px;
+    top: 0;
+    margin-left: -2px;
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+}
+.feedsViewCls .timeline .tl-header{
+	    background: #ddd;
+    box-shadow: 0 0 0 4px #fff!important;
+    position: relative;
+    width: 140px;
+    padding: 8px 0;
+    text-align: center;
+    left: 0;
+    margin-left: 0;
+    margin-bottom: 40px;
+    font-size: 14px;
+    border-radius: 2px;
+}
+
+.feedsViewCls .timeline .tl-entry{
+	margin-left: 100px;
+    margin-bottom: 20px;
+    margin-right: 0;
+    padding-left: 36px;
+    padding-right: 15px;
+    position: relative;
+}
+.feedsViewCls .timeline .tl-entry .tl-time{
+	left: auto;
+    right: 100%;
+    margin-left: 0;
+    margin-right: 32px;
+    top: 14px;
+    position: absolute;
+    text-align: right;
+    white-space: nowrap;
+    color: #888;
+    font-size: 13px;
+}
+.feedsViewCls .timeline .tl-entry .tl-icon{
+	box-shadow: 0 0 0 4px #fff!important;
+    display: block;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 999999px;
+    left: -20px;
+    right: auto;
+    top: 4px;
+    text-align: center;
+    font-size: 14px;
+    overflow: hidden;
+}
+.feedsViewCls .timeline .tl-entry .tl-icon img{
+	height: 100%;
+    display: block;
+}
+
+.feedsViewCls .timeline .tl-entry .bg-warning{
+	background: #f4b04f!important;
+}
+
+.feedsViewCls .timeline .tl-entry .tl-body{
+	position: relative;
+    padding: 15px;
+    margin: 0;
+    border-color: #e2e2e2;
+}

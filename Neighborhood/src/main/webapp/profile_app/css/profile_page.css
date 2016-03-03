@@ -1,0 +1,110 @@
+.profileViewCls{
+	background: white;
+	padding: 3%;
+}
+.profileViewCls .aboutPanelCls .pmb-block{
+	padding: 40px 42px 0;
+    margin-bottom: 20px;
+}
+.profileViewCls .aboutPanelCls .pmb-block .pmbb-header{
+    margin-bottom: 25px;
+    position: relative;	
+}
+.profileViewCls .aboutPanelCls .pmb-block .pmbb-header h2{
+	margin: 0;
+    font-weight: 100;
+    font-size: 20px;
+    color: #6418E4;
+}
+.profileViewCls .aboutPanelCls .pmb-block .pmbb-header h2 i{
+    margin-right: 10px;	
+    color: #770AEC;
+}
+.profileViewCls .aboutPanelCls .pmb-block .pmbb-header .actions{
+	position: absolute;
+    top: -2px;
+    right: 0;
+    list-style: none;
+    padding: 0;
+    z-index: 2;
+    margin: 0;	
+}
+.profileViewCls .aboutPanelCls .pmb-block .pmbb-header .actions .dropdown{
+    display: inline-block;
+    vertical-align: baseline;	
+}
+.profileViewCls .aboutPanelCls .pmb-block .pmbb-header .actions .dropdown span{
+    width: 100%;
+    height: 30px;
+    line-height: 29px;
+    display: inline-block;
+    text-align: center;
+    position: relative
+}
+.profileViewCls .aboutPanelCls .pmb-block .pmbb-header .actions .dropdown span i{
+    color: #5514D6;	
+}
+
+.profileViewCls .aboutPanelCls .pmb-block .pmbb-body{
+    padding-left: 30px !important;	
+}
+.profileViewCls .aboutPanelCls .pmb-block .pmbb-body .pmbb-view{
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+    -webkit-animation-duration: 1000ms;
+    animation-duration: 1000ms;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;	
+}
+.profileViewCls .aboutPanelCls .pmb-block .pmbb-body .pmbb-view .dl-horizontal dd{
+	height: 1.42857143em;
+}
+.profileViewCls .aboutPanelCls .pmb-block .pmbb-body .pmbb-edit{
+    position: relative;
+    z-index: 1;
+    /* display: none; */
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+    -webkit-animation-duration: 1000ms;
+    animation-duration: 1000ms;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;	
+}
+.profileViewCls .aboutPanelCls .pmb-block .pmbb-body .pmbb-edit .fg-line{
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    vertical-align: top;	
+}
+.profileViewCls .aboutPanelCls .pmb-block .pmbb-body .pmbb-edit .fg-line .form-control{
+    color: #000;
+    resize: none;	
+}
+.profileViewCls .aboutPanelCls .pmb-block .pmbb-body .m-t-10{
+    margin-top: 10px !important;	
+}
+.profileViewCls .aboutPanelCls .pmb-block .pmbb-body .btn-primary{
+    text-transform: uppercase;
+    background-color: #773BDC;
+    border-color: #8F18E0;	
+}
+.profileViewCls .aboutPanelCls .pmb-block .pmbb-body .btn-link{
+	color : black;
+	text-transform: uppercase;
+}
+.profileViewCls .aboutPanelCls .pmb-block .pmbb-body.map #user_map_search_box_id{
+    top: 15px !important;
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 11px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 300px;	
+}
+
+
+.dropdown-menu{
+	display:block;
+}

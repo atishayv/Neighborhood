@@ -1,0 +1,107 @@
+.neighborhood_view_cls{
+	padding : 3%;
+}
+
+.neighborhood_view_cls .neighborhood_view_panel_cls{
+	height : 100%;
+}
+
+.neighborhood_view_cls .neighborhood_view_panel_cls{
+	height : 100%;
+}
+
+.neighborhood_view_cls .neighborhood_view_panel_cls .cover_photo_cls{
+	height: 300px;
+    margin-bottom: 5px;
+    width: 100%;
+    background: url(../images/gloria-project.jpg) no-repeat left top;
+    background-size: 100% 100%;
+}
+
+.neighborhood_view_cls .neighborhood_view_panel_cls .cover_photo_cls .profile_pic_cls{
+    padding: 12px;	
+}
+
+.neighborhood_view_cls .neighborhood_view_panel_cls .cover_photo_cls .profile_pic_cls img{
+       width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid rgba(0, 0, 0, 0.14);
+    box-sizing: content-box;
+    margin-top: 11%;	
+}
+
+.neighborhood_view_cls .neighborhood_view_panel_cls .cover_photo_cls .profile_info_cls{
+	background: rgba(0, 0, 0, 0.37);
+    padding: 7px 14px;
+    color: #fff;
+    margin-top: 20px;
+    position: relative;
+}
+
+.neighborhood_view_cls .neighborhood_view_panel_cls .card{
+	position: relative;
+    background: #fff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+    margin-bottom: 30px;
+    margin-top: 20px;
+    float: left;
+    width: 98%;
+    margin: 2%;
+}
+
+.neighborhood_view_cls .neighborhood_view_panel_cls .card.card_half{
+	width: 46%;
+    float: left;
+    margin: 2%;
+}
+
+.neighborhood_view_cls .neighborhood_view_panel_cls .card .card-header{
+    padding: 23px 25px;
+    position: relative;	
+}
+
+.neighborhood_view_cls .neighborhood_view_panel_cls .card .card-header h2{
+    margin: 0;
+    line-height: 100%;
+    font-size: 17px;
+    font-weight: 400;	
+}
+
+.neighborhood_view_cls .neighborhood_view_panel_cls .card .card-body{
+    padding-top: 0;
+        padding: 23px 26px;	
+}
+
+.neighborhood_view_cls .neighborhood_view_panel_cls .card .card-body .panel-collapse .panel-body .text-content{
+    width: 80%;
+    float: left;	
+}
+
+.neighborhood_view_cls .neighborhood_view_panel_cls .card .card-body .panel-collapse .panel-body .image-content{
+    width: 20%;
+    float: left;	
+}
+
+.neighborhood_view_cls .neighborhood_view_panel_cls .card .card-body ul li{
+    margin: 5px 0;
+    padding: 5px 10px;
+    color: #333;
+    text-decoration: none;
+    border: 1px solid #e7eaec;
+    background: #f5f5f5;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    box-sizing: border-box;	
+}
+
+span.stars, span.stars span {
+    display: block;
+    background: url(../images/stars.png) 0 -16px repeat-x;
+    width: 80px;
+    height: 16px;
+}
+
+span.stars span {
+    background-position: 0 0;
+}

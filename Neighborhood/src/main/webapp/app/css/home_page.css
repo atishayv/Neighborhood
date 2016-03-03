@@ -1,0 +1,813 @@
+html{
+	height:100%;
+	width:100%;
+}
+body{
+	height:100%;
+	width:100%;
+}
+
+.mainViewCls{
+    background: white;	 
+}
+.mainViewCls .mainViewToolbarCls{
+    background-color: #A560DC;
+    background-image: -webkit-linear-gradient(top, #A76DE6, #BD86EC 3%, #8931E8);
+    height: 8%;
+}
+.mainViewCls .mainViewToolbarCls .leftToolbarCls{
+    height: 100%;
+    width: 23%;
+    float: left;
+    display: table;
+}
+.mainViewCls .mainViewToolbarCls .mainViewToolbarTextCls{
+	height: 100%;
+	width: 77%;
+    display: table;
+    float : left;
+    color: white;
+}
+.mainViewCls .mainViewToolbarCls .leftToolbarCls .spanTitle{
+	width: 81%;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    height: 100%;
+    color: white;
+    display: table-cell;
+    vertical-align: middle;
+}
+.mainViewCls .mainViewToolbarCls .mainViewToolbarTextCls .spanDesc{
+	display: table-cell;
+    vertical-align: middle;
+    font-size: 18px;
+    width: 65%;
+    padding-left: 2%;
+}
+.mainViewCls .mainViewToolbarCls .mainViewToolbarTextCls.search .spanDesc {
+	display:none;
+}
+.mainViewCls .mainViewToolbarCls .mainViewToolbarTextCls.search .top-search-wrap{
+	top: 0;
+    opacity: 1;
+    display : table-cell;
+    position : relative;
+	transition : all 500ms ease-in-out;
+}
+.mainViewCls .mainViewToolbarCls .mainViewToolbarTextCls .top-search-wrap{
+    font-size: 18px;
+    width: 80%;
+    text-align: center;
+    top: -100px;
+    height: 59px;
+    position: absolute;
+    opacity: 0;
+}
+.mainViewCls .mainViewToolbarCls .mainViewToolbarTextCls .top-search-wrap input{
+    border: 0;
+    height: 70%;
+    padding: 0 10px 0 40px;
+    font-size: 18px;
+    margin: 10px;
+    width: 500px;
+    border-radius: 2px;
+    color: rgba(51, 51, 51, 0.69);
+    background-color: rgba(255, 255, 255, 0.26);
+    background-image: url("../images/search.png");
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    display: inline;	
+}
+.mainViewCls .mainViewToolbarCls .mainViewToolbarTextCls .top-search-wrap .top-search-close{
+    font-size: 23px;
+    font-style: normal;
+    color: rgba(0, 0, 0, 0.38);
+    width: 35px;
+    text-align: center;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.mainViewCls .mainViewToolbarCls .mainViewToolbarTextCls.search .top-menu .fa-search{
+	display : none;
+}
+.mainViewCls .mainViewToolbarCls .mainViewToolbarTextCls .top-menu{
+    height: 100%;
+    width: 10%;
+    display: table-cell;
+    vertical-align: middle;	
+}
+.mainViewCls .mainViewToolbarCls .mainViewToolbarTextCls .top-menu i{
+	font-size: 20px;
+	margin-right: 20%;
+}
+.mainViewCls .mainViewToolbarCls .mainViewToolbarTextCls .top-menu i .tmn-counts{
+    position: absolute;
+    color: #FFF;
+    font-style: normal;
+    background: #f44336;
+    padding: 1px 5px;
+    border-radius: 2px;
+    right: -15px;
+    top: -3px;
+    font-size: 9px;
+    -webkit-animation-name: wobble;
+    animation-name: wobble;
+    -webkit-animation-duration: 500ms;
+    animation-duration: 500ms;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;	
+}
+.mainViewCls .mainViewToolbarCls #main-menu-toggle{
+    float: left;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    padding : 0;
+        padding-left: 10px;
+}
+.mainViewCls .mainViewToolbarCls #main-menu-toggle .navbar-icon{
+    font-size: 18px;
+    transition: all .2s;
+    height: 100%;
+    width: 100%;
+    display: table-cell;
+    vertical-align: middle;	
+}
+.mainViewCls .mainViewToolbarCls #main-menu-toggle .navbar-icon:before{
+	float : right;
+}
+.mainViewCls .mainViewToolbarCls #main-menu-toggle .navbar-icon:after{
+    content: "\f0d9";
+	float : left;
+	margin-right: 5px;
+    font-size: 1em;
+    
+}
+.mainViewCls .mainViewToolbarCls #main-menu-toggle.toggle-hide .navbar-icon:after{
+	content: "\f0da";
+	float : right;
+}
+
+
+.mainViewCls .viewContentCls{
+	height: 100%;
+	width:100%;
+}
+.mainViewCls .profilePanelCls{
+	height: 100%;
+    width: 23%;
+    float: left;
+    border: 1px solid #9543EC;
+    border-top: none;
+    transition: all 200ms ease-in-out;
+}
+.mainViewCls .profilePanelCls .profile-block{
+    margin-bottom: 18px;
+    text-align: center;
+    height: 32%;
+}
+.mainViewCls .profilePanelCls .profile-block .profile-photo{
+	border-color: #e2e2e2;
+    padding: 6px;
+    display: inline-block;
+    margin-bottom: 10px;
+    border-radius: 999999px;
+}
+.mainViewCls .profilePanelCls .profile-block .profile-photo:hover{
+    background: rgba(4, 4, 4, 0.51) center center no-repeat;	
+}
+.mainViewCls .profilePanelCls .profile-block .profile-photo:hover img{
+    opacity: 0.6;
+    display: inline-block;	
+}
+.mainViewCls .profilePanelCls .profile-block .profile-photo:hover button{
+        background: black;
+    border-radius: 10px;
+    width: 75%;
+    display: block !important;
+    margin-left: 14%;
+    color: white;	
+}
+.mainViewCls .profilePanelCls .profile-block .profile-photo img{
+    display: inline-block;
+    max-width: 100%;
+    border-radius: 999999px;
+    height: 180px;
+    width: 180px;	
+}
+.mainViewCls .profilePanelCls .panel{
+	border-color: #e4e4e4;
+    margin-bottom: 22px;
+    position: relative;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    text-align: center;
+}
+.mainViewCls .profilePanelCls .navigation{
+    height: 64%
+}
+
+.mainViewCls .profilePanelCls .navigation ion-item{
+	border: none;
+	margin:0;
+	padding : 0;
+}
+
+.mainViewCls .profilePanelCls .navigation li{
+	width : 100%;
+}
+.mainViewCls .profilePanelCls .navigation li:hover{
+    background-color: #D6D5D8;	
+}
+.mainViewCls .profilePanelCls .navigation a{
+	color: #808b9c;
+    position: relative;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+    display: block;
+    font-size: 13px;
+    line-height: 20px;
+    padding: 11px 14px;
+    text-decoration: none;
+}
+.mainViewCls .profilePanelCls .navigation>li>a{
+    text-align: left;	
+}
+.mainViewCls .profilePanelCls .navigation>li>a>.menu-icon{
+    margin-right: 15px;
+}
+.mainViewCls .profilePanelCls .navigation .menu-icon{
+	display: inline-block;
+    margin-right: 5px;
+    line-height: 20px;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    font-size: 20px;
+}
+.mainViewCls .profilePanelCls .navigation>li>a.mm-text{
+    display: inline;	
+}
+
+.mainViewCls .profilePanelCls .navigation .animated{
+    transition: all 350ms linear;
+}
+.mainViewCls .profilePanelCls .navigation .mm-dropdown{
+	position: relative;
+}
+.mainViewCls .profilePanelCls .navigation>.mm-dropdown>a{
+    padding-right: 30px;	
+}
+.mainViewCls .profilePanelCls .navigation .mm-dropdown>a:before{
+    content: "\f105";
+    display: block;
+    font-family: FontAwesome;
+    font-size: 12px;
+    line-height: 10px;
+    height: 10px;
+    width: 10px;
+    right: 6%;
+    top: 17px;
+    margin: 0;
+    left : auto;
+    position: absolute;
+    text-align: center;
+    -webkit-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;	
+}
+.mainViewCls .profilePanelCls .navigation>.mm-dropdown.open>a:before{
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+.mainViewCls .profilePanelCls .navigation .mm-dropdown ul{
+	background: #D7D9DC;
+	height: 0px;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0;	
+}
+.mainViewCls .profilePanelCls .navigation .mm-dropdown ul li{
+    padding-left: 0;
+}
+.mainViewCls .profilePanelCls .navigation .mm-dropdown>ul>li>a{
+    padding-left: 40px;	
+}
+.mainViewCls .profilePanelCls .navigation .mm-dropdown ul a{
+	padding-bottom: 8px;
+    padding-top: 8px;
+}
+.mainViewCls .profilePanelCls .navigation .mm-dropdown.open>ul{
+	height: inherit;
+    opacity: 1;	
+}
+.mainViewCls .profilePanelCls.minimised{
+	width: 4%;
+}
+.mainViewCls .profilePanelCls.minimised .profile-block{
+    display: none;	
+}
+.mainViewCls .profilePanelCls.minimised .navigation{
+	overflow : visible;
+}
+.mainViewCls .profilePanelCls.minimised .navigation .animated{
+    display: none;	
+}
+.mainViewCls .profilePanelCls.minimised .navigation .open .animated{
+     display: block;
+    position: absolute;
+    width: 185px;
+    margin-left: 101%;
+    z-index: 200;
+    top: 0px;	
+}
+
+
+
+
+
+
+/*notification overlay csss*/
+.mainViewCls .notif-menu.open{
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+    filter: alpha(opacity=100);	
+}
+.mainViewCls .notif-menu{
+	-webkit-transform-origin: top right;
+    -moz-transform-origin: top right;
+    -ms-transform-origin: top right;
+    transform-origin: top right;
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
+    opacity: 0;
+    filter: alpha(opacity=0);
+    display: block;
+    width: 300px;
+    padding: 0;
+    right: 13%;
+    left: auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    -webkit-transition: all;
+    -o-transition: all;
+    transition: all;
+    -webkit-transition-duration: 250ms;
+    transition-duration: 250ms;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    margin-top: 1px;
+    float: right !important;
+    position: absolute;
+    top: 6%;
+    z-index: 9;
+    min-width: 160px;
+    margin: 2px 0 0;
+    list-style: none;
+    font-size: 13px;
+    text-align: left;
+    background-color: #ffffff;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    background-clip: padding-box;
+}
+.mainViewCls .notif-menu .listview{
+	height : 100%;
+}
+.mainViewCls .notif-menu .listview .lv-header{
+    text-align: center;
+    padding: 15px 10px 13px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #F0F0F0;
+    font-weight: 500;
+    color: #4C4C4C;
+    height: 12%;	
+}
+.mainViewCls .notif-menu .listview .lv-header i{
+	float: right;
+    font-size: 20px;
+}
+.mainViewCls .notif-menu .listview .lv-body{
+	height: 76%;
+}
+.mainViewCls .notif-menu .listview .lv-body .lv-item{
+    position: relative;
+    display: block;
+    -webkit-transition: background-color;
+    -o-transition: background-color;
+    transition: background-color;
+    -webkit-transition-duration: 300ms;
+    transition-duration: 300ms;	
+        border: none;
+}
+.mainViewCls .notif-menu .listview .lv-body .lv-item .item-content{
+	padding: 7px 12px 8px 13px;	
+}
+.mainViewCls .notif-menu .listview .lv-body .lv-item .dismiss{
+	transform: translateX(1000px) translateY(0px) translateZ(0px) rotate(0deg) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skewX(0deg) skewY(0deg) scaleX(1) scaleY(1) scaleZ(1) !important;
+    transition-property: transform !important;
+    transition-duration: 1000ms !important;
+    transition-timing-function: ease-out !important;	
+}
+.mainViewCls .notif-menu .listview .lv-body .lv-item .media img{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;	
+}
+.mainViewCls .notif-menu .listview .lv-body .lv-item .media .media-body{
+    zoom: 1;
+    display: block;
+    width: auto;	
+}
+.mainViewCls .notif-menu .listview .lv-body .lv-item .media .media-body .lv-title{
+	color: #000;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;	
+}
+.mainViewCls .notif-menu .listview .lv-body .lv-item .media .media-body .lv-small{
+    font-size: 12px;
+    color: #A9A9A9;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    width: 100%;	
+}
+.mainViewCls .notif-menu .listview .lv-footer{
+    height: 12%;
+    display: block;
+    text-align: center;
+    padding: 12px 10px 8px;
+    border-top: 1px solid #F0F0F0;
+    line-height: 100%;
+    font-size: 12px;
+    color: #828282;	
+}
+/*notification overlay csss*/
+
+
+
+/*right panel chat overlay css*/
+
+.mainViewCls .rightPanelCls{
+	width: 20%;
+    overflow: hidden;
+    position: absolute;
+    right: calc(40px - 20%);
+    right: -webkit-calc(40px - 20%);
+    right: -moz-calc(40px - 20%);
+    height: 100%;
+}
+
+@media only screen and (max-width: 1024px) and (min-width: 768px){
+	.mainViewCls .rightPanelCls{
+		width: 25%;
+		right: calc(40px - 25%);
+    	right: -webkit-calc(40px - 25%);
+    	right: -moz-calc(40px - 25%);
+	}
+}
+.mainViewCls .rightPanelCls.show{
+	right : 0px;
+}
+.mainViewCls .rightPanelCls .theme-config-box{
+	margin-right: -220px;
+    position: relative;
+    z-index: 2000;
+    transition-duration: 0.8s;
+    height: 100%;
+    width: 100%;
+}
+.mainViewCls .rightPanelCls .spin-icon{
+	background: #9959E8;
+    position: absolute;
+    padding: 7px 10px 7px 13px;
+    border-radius: 20px 0px 0px 20px;
+    font-size: 16px;
+    top: 0;
+    left: 0px;
+    width: 40px;
+    color: #fff;
+    cursor: pointer;
+}
+.mainViewCls .rightPanelCls .skin-setttings{
+	width: calc(100% - 40px);
+    width: -webkit-calc(100% - 40px);
+    width: -moz-calc(100% - 40px);
+    margin-left: 40px;
+    background: #f3f3f4;
+    height: 100%;
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane{
+	height: 100%;
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .sidebar-title{
+	background: #F3F0F7;
+    border-bottom: 1px solid #6A22D2;
+    text-align: center;
+    height: 60px;
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .sidebar-title h3{
+	margin-top : 0px;
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .sidebar-list{
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    height: -webkit-calc(100% - 60px) !important;
+    height: -moz-calc(100% - 60px) !important;
+    height: calc(100% - 60px) !important;	
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .sidebar-tab-menu{
+	height: 8%;
+	background: #f9f9f9;
+	text-align: center;
+	width: 100%;
+    display: table;
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .sidebar-tab-menu .tab-item{
+    width: 50%;
+    height: 100%;
+    float: left;
+    display: table-cell;
+    vertical-align: middle;
+    line-height: 55px;	
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .sidebar-tab-menu .tab-item.select{
+	border-bottom: 1px solid #782FD4;
+	font-weight: bold;
+}
+
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .friend-status{
+    height: 40%;
+    transition: all 500ms ease-in-out;
+    padding: 20px 0;
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .friend-status.slide-Out{
+	transform: translateX(1000px) translateY(0px) translateZ(0px) rotate(0deg) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skewX(0deg) skewY(0deg) scaleX(1) scaleY(1) scaleZ(1) !important;
+    transition-property: transform !important;
+    transition-duration: 1000ms !important;
+    transition-timing-function: ease-out !important;
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .sidebar-overlay.slide-Out{
+	transform: translateX(1000px) translateY(0px) translateZ(0px) rotate(0deg) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skewX(0deg) skewY(0deg) scaleX(1) scaleY(1) scaleZ(1) !important;
+    transition-property: transform !important;
+    transition-duration: 1000ms !important;
+    transition-timing-function: ease-out !important;	
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .friend-status .tab-pane{
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    height: 90%;	
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .friend-status .tab-pane .listview{
+    height: 100%;	
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .friend-status .tab-pane .listview .lv-item{
+    height: 55px;	
+}
+.mainViewCls .rightPanelCls .skin-setttings.minimised .tab-pane .friend-status{
+	height : 78%;
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .friend-status .chat-search{
+    height: 10%;
+    padding: 0px 20px 0px 20px;	
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .friend-status .chat-search .fg-line{
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    vertical-align: top;	
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .friend-status .chat-search .fg-line input{
+    background-image: url("../images/search-2.png");
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 30px;
+    -webkit-transition: all;
+    -o-transition: all;
+    transition: all;
+    -webkit-transition-duration: 300ms;
+    transition-duration: 300ms;
+    border: none;
+    border-bottom: 1px solid #6B20D8;
+    background-color: #F3F3F4;
+    box-shadow: none;
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .friend-status .chat-search .fg-line input:focus{
+    background-position: right center;
+    padding: 0 30px 0 0;	
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .friend-status .lv-item{
+    padding: 10px 15px;
+    position: relative;
+    display: block;
+    -webkit-transition: background-color;
+    -o-transition: background-color;
+    transition: background-color;
+    -webkit-transition-duration: 300ms;
+    transition-duration: 300ms;	
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .friend-status .lv-item .media{
+	overflow: visible;
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .friend-status .lv-item .media .p-relative{
+    padding-right: 15px;	
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .friend-status .lv-item .media img{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;	
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .friend-status .lv-item .media .chat-status-busy{
+    box-shadow: 0 0 0 1px #ffa500;
+    background: #ffa500;
+    position: absolute;
+    width: 10px;
+    height: 9px;
+    border-radius: 50%;
+    border: 2px solid #FFF;	
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .friend-status .lv-item .media .chat-status-online{
+    box-shadow: 0 0 0 1px #9F67BB;
+    background: #5A0F9E;
+    position: absolute;
+    width: 10px;
+    height: 9px;
+    border-radius: 50%;
+    border: 2px solid #FFF;	
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .friend-status .lv-item .media .media-body{
+    zoom: 1;
+    display: block;
+    width: auto;
+    vertical-align: top;	
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .friend-status .lv-item .media .media-body .lv-title{
+    color: #000;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;	
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .friend-status .lv-item .media .media-body .lv-small{
+    font-size: 12px;
+    color: #A9A9A9;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    width: 100%;	
+}
+
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .sidebar-overlay{
+    height: 40%;
+    transition: all 500ms ease-in-out;
+    display : none;
+}
+.mainViewCls .rightPanelCls .skin-setttings.minimised .tab-pane .sidebar-overlay{
+	height : 78%;
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .sidebar-message{
+	padding: 15px 20px;
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .sidebar-message a{
+	color: inherit;
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .sidebar-message a div{
+    margin-right: 10px;	
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .sidebar-message a div img{
+    height: 38px;
+    width: 38px;
+    border-radius: 50%;
+    border: 1px solid #e7eaec;
+    margin-top: 1px;
+}
+.mainViewCls .rightPanelCls .skin-setttings .tab-pane .sidebar-message a .media-body{
+	font-size: 12px;
+    display: block;
+    width: auto;
+}
+.mainViewCls .rightPanelCls .skin-setttings .small-chat-box{
+    background: #fff;
+    border: 1px solid #e7eaec;
+    width: 100%;
+    height: 44%;
+    border-radius: 4px;
+    transition: all 500ms ease-in-out;
+}
+.mainViewCls .rightPanelCls .skin-setttings.minimised .small-chat-box{
+	height : 5%;
+}
+.mainViewCls .rightPanelCls .skin-setttings.minimised .small-chat-box .heading{
+	height : 100%;
+}
+.mainViewCls .rightPanelCls .skin-setttings.minimised .small-chat-box .slimScrollDiv{
+	display : none;
+}
+.mainViewCls .rightPanelCls .skin-setttings.minimised .small-chat-box .form-chat{
+	display : none;
+}
+.mainViewCls .rightPanelCls .skin-setttings .small-chat-box .heading{
+    height: 10%;
+    background: #2f4050;
+    padding: 2% 15px;
+    font-weight: bold;
+    color: #fff;
+}
+.mainViewCls .rightPanelCls .skin-setttings .small-chat-box .slimScrollDiv{
+    position: relative;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    width: auto;
+    height: 80%;	
+    padding: 15px;
+}
+.mainViewCls .rightPanelCls .skin-setttings .small-chat-box .slimScrollDiv .content{
+    width: auto;
+    height: 100%;	
+}
+.mainViewCls .rightPanelCls .skin-setttings .small-chat-box .slimScrollDiv .content .left{
+	text-align: left;
+    clear: both;
+}
+.mainViewCls .rightPanelCls .skin-setttings .small-chat-box .slimScrollDiv .content .right{
+	text-align: right;
+    clear: both;
+}
+.mainViewCls .rightPanelCls .skin-setttings .small-chat-box .slimScrollDiv .content>div{
+    padding-bottom: 20px;	
+}
+.mainViewCls .rightPanelCls .skin-setttings .small-chat-box .slimScrollDiv .content .author-name{
+    font-weight: bold;
+    margin-bottom: 3px;
+    font-size: 11px;
+    padding-top: 9px;	
+}
+.mainViewCls .rightPanelCls .skin-setttings .small-chat-box .slimScrollDiv .content .chat-date{
+    opacity: 0.6;
+    font-size: 10px;
+    font-weight: normal;
+    margin-left: 10px;	
+}
+.mainViewCls .rightPanelCls .skin-setttings .small-chat-box .slimScrollDiv .content .left .chat-message{
+	float : left;	
+}
+.mainViewCls .rightPanelCls .skin-setttings .small-chat-box .slimScrollDiv .content .right .chat-message{
+	float : right;	
+}
+.mainViewCls .rightPanelCls .skin-setttings .small-chat-box .slimScrollDiv .content .chat-message{
+	padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    line-height: 14px;
+    max-width: 80%;
+    background: #f3f3f4;
+    margin-bottom: 10px;
+}
+.mainViewCls .rightPanelCls .skin-setttings .small-chat-box .slimScrollDiv .content .chat-message.active{
+    background: #9A81D6;
+    color: #fff;	
+}
+
+.mainViewCls .rightPanelCls .skin-setttings .small-chat-box .form-chat{
+	height: 10%;
+}
+.mainViewCls .rightPanelCls .skin-setttings .small-chat-box .form-chat .btn-primary{
+    background-color: #A167EA;
+    border-color: #780ECC;
+    color: #FFFFFF;	
+}
+
+
+/*right panel chat overlay css*/
+
+
+
+/*app area content cls css*/
+.mainViewCls .viewContentCls .detailPanelCls{
+	height: 100%;
+    width: 77%;
+    float: left;
+    padding: 4%;
+    font-size: 15px;
+    transition: all 200ms ease-in-out;
+    display: inline;
+}
+.mainViewCls .viewContentCls.toggle-hide .detailPanelCls{
+	width:96%;	
+}
+/*app area content cls css*/

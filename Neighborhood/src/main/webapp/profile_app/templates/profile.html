@@ -1,0 +1,231 @@
+<ion-content class="profileViewCls" scroll="false" >
+	
+	<ion-scroll direction="y" style="height: 100%;">
+		<div class="aboutPanelCls">
+			 <div class="pmb-block">
+                 <div class="pmbb-header">
+                     <h2><i class="fa fa-user"></i> Basic Information</h2>
+                     
+                     <ul class="actions">
+                         <li class="dropdown">
+                             <a href="" ng-click="toggle_is_edit_basic_info_collapsed()">
+                                 <i class="fa fa-bars"></i>
+                             </a>
+                             
+                             <ul class="dropdown-menu dropdown-menu-right" ng-if="is_edit_basic_info_collapsed">
+                                 <li>
+                                     <span ng-click="set_edit_basic_info(true)">Edit</span>
+                                 </li>
+                             </ul>
+                         </li>
+                     </ul>
+                 </div>
+                 <div class="pmbb-body basicInfo">
+                     <div class="pmbb-view" ng-if="!edit_basic_info">
+                         <dl class="dl-horizontal">
+                             <dt>Full Name</dt>
+                             <dd id="basic_info_name_id">Enter your name</dd>
+                         </dl>
+                         <dl class="dl-horizontal">
+                             <dt>Gender</dt>
+                             <dd id="basic_info_gender_id">Enter your gender</dd>
+                         </dl>
+                         <dl class="dl-horizontal">
+                             <dt>Birthday</dt>
+                             <dd id="basic_info_birthday_id">Provide your date of birth</dd>
+                         </dl>
+                         <dl class="dl-horizontal">
+                             <dt>Martial Status</dt>
+                             <dd id="basic_info_rel_status_id">Enter your relationship status</dd>
+                         </dl>
+                     </div>
+                     
+                     <div class="pmbb-edit basicInfo" ng-if="edit_basic_info">
+                         <dl class="dl-horizontal">
+                             <dt class="p-t-10">Full Name</dt>
+                             <dd>
+                                 <div class="fg-line">
+                                     <input id="basic_info_name_edit_id" type="text" class="form-control" placeholder="">
+                                 </div>
+                                 
+                             </dd>
+                         </dl>
+                         <dl class="dl-horizontal">
+                             <dt class="p-t-10">Gender</dt>
+                             <dd>
+                                 <div class="fg-line">
+                                     <select id="basic_info_gender_edit_id" class="form-control">
+                                         <option>Male</option>
+                                         <option>Female</option>
+                                         <option>Other</option>
+                                     </select>
+                                 </div>
+                             </dd>
+                         </dl>
+                         <dl class="dl-horizontal">
+                             <dt class="p-t-10">Birthday</dt>
+                             <dd>
+                                 <div class="dtp-container dropdown fg-line">
+                                     <input id="basic_info_birthday_edit_id" type="date" class="form-control date-picker">
+                                 </div>
+                             </dd>
+                         </dl>
+                         <dl class="dl-horizontal">
+                             <dt class="p-t-10">Martial Status</dt>
+                             <dd>
+                                 <div class="fg-line">
+                                     <select id="basic_info_rel_status_edit_id" class="form-control">
+                                         <option>Single</option>
+                                         <option>Married</option>
+                                         <option>Other</option>
+                                     </select>
+                                 </div>
+                             </dd>
+                         </dl>
+                         
+                         <div class="m-t-30">
+                             <button onclick="Neighborhood.app.getController(\'profileController\').saveInfo(\'basicInfo\')" class="btn btn-primary btn-sm waves-effect">Save</button>
+                             <button ng-click="set_edit_basic_info(false)" data-pmb-action="reset" class="btn btn-link btn-sm waves-effect">Cancel</button>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             <!-- contact information section -->
+             <div class="pmb-block">
+                 <div class="pmbb-header">
+                     <h2><i class="fa fa-phone"></i> Contact Information</h2>
+                     
+                     <ul class="actions">
+                         <li class="dropdown">
+                             <a href="" ng-click="toggle_is_edit_contact_info_collapsed()">
+                                 <i class="fa fa-bars"></i>
+                             </a>
+                             
+                             <ul class="dropdown-menu dropdown-menu-right" ng-if="is_edit_contact_info_collapsed">
+                                 <li>
+                                     <span ng-click="set_edit_contact_info(true)">Edit</span>
+                                 </li>
+                             </ul>
+                         </li>
+                     </ul>
+                 </div>
+                 <div class="pmbb-body contact">
+                     <div class="pmbb-view" ng-if="!edit_contact_info">
+                         <dl class="dl-horizontal">
+                             <dt>Mobile Phone</dt>
+                             <dd id="basic_info_contact_number_id">00971 12345678 9</dd>
+                         </dl>
+                         <dl class="dl-horizontal">
+                             <dt>Email Address</dt>
+                             <dd id="basic_info_mail_id">malinda.h@gmail.com</dd>
+                         </dl>
+                    </div>
+                     
+                     <div class="pmbb-edit contact" ng-if="edit_contact_info">
+                         <dl class="dl-horizontal">
+                             <dt class="p-t-10">Mobile Phone</dt>
+                             <dd>
+                                 <div class="fg-line">
+                                     <input id="basic_info_contact_number_edit_id" type="text" class="form-control" placeholder="eg. 00971 12345678 9">
+                                 </div>
+                             </dd>
+                         </dl>
+                         <dl class="dl-horizontal">
+                             <dt class="p-t-10">Email Address</dt>
+                             <dd>
+                                 <div class="fg-line">
+                                     <input id="basic_info_mail_edit_id" type="email" class="form-control" placeholder="eg. malinda.h@gmail.com">
+                                 </div>
+                             </dd>
+                         </dl>
+                         
+                         <div class="m-t-30">
+                             <button onclick="Neighborhood.app.getController(\'profileController\').saveInfo(\'contact\')" class="btn btn-primary btn-sm waves-effect">Save</button>
+                             <button ng-click="set_edit_contact_info(false)" data-pmb-action="reset" class="btn btn-link btn-sm waves-effect">Cancel</button>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             
+             <!-- education and workplace section -->
+             <div class="pmb-block">
+             	<div class="pmbb-header">
+             		<h2><i class="fa fa-building"></i> Education and Workplace</h2>
+             		<ul class="actions">
+             			<li class="dropdown">
+	             			<a href="" ng-click="toggle_is_edit_work_info_collapsed()"><i class="fa fa-bars"></i></a>
+	             			<ul class="dropdown-menu dropdown-menu-right" ng-if="is_edit_work_info_collapsed">
+	             				<li>
+	             					<span ng-click="set_edit_work_education(true)">Edit</span>
+	             				</li>
+	             			</ul>
+             			</li>
+             		</ul>
+             	</div>
+             	<div class="pmbb-body workEducation">
+             		<div class="pmbb-view workEducation" ng-if="!edit_work_education">
+              			<dl class="dl-horizontal">
+                   			<dt>School</dt>
+                  			 <dd id="basic_info_school_id">Lions School</dd>
+               			</dl>
+                		<dl class="dl-horizontal">
+                   			<dt>College</dt>
+                   			<dd id="basic_info_college_id">Inderprastha Engineering College</dd>
+               			</dl>
+               			<dl class="dl-horizontal">
+                   			<dt>Workplace</dt>
+                   			<dd id="basic_info_work_id">Openstream Technologies Pvt Ltd</dd>
+               			</dl>
+             		</div>
+             
+              <div class="pmbb-edit workEducation"  ng-if="edit_work_education">
+               	<dl class="dl-horizontal">
+                	<dt class="p-t-10">School</dt>
+                	<dd>
+                    	<div class="fg-line">
+                        	<input id="basic_info_school_edit_id" type="text" class="form-control" placeholder="eg. your school name">
+                    	</div>
+                	</dd>
+            	</dl>
+            	<dl class="dl-horizontal">
+                	<dt class="p-t-10">College</dt>
+                	<dd>
+	                    <div class="fg-line">
+                        	<input id="basic_info_college_edit_id" type="text" class="form-control" placeholder="eg. your college name">
+                    	</div>
+                	</dd>
+            	</dl>
+            	<dl class="dl-horizontal">
+                	<dt class="p-t-10">Workplace</dt>
+                	<dd>
+	                    <div class="fg-line">
+    	                    <input id="basic_info_work_edit_id" type="text" class="form-control" placeholder="eg. your workplace">
+        	            </div>
+            	    </dd>
+            	</dl>
+            
+            	<div class="m-t-30">
+                      <button onclick="Neighborhood.app.getController(\'profileController\').saveInfo(\'workEducation\')" class="btn btn-primary btn-sm waves-effect">Save</button>
+                      <button ng-click="set_edit_work_education(false)" data-pmb-action="reset" class="btn btn-link btn-sm waves-effect">Cancel</button>
+                </div>
+        		</div>
+    			</div>
+            </div>
+             
+             <!-- location information section -->
+             <div class="pmb-block">
+             	<div class="pmbb-header">
+             		<h2><i class="fa fa-map-marker"></i> Location</h2>
+             	</div>
+             	<div class="pmbb-body map">
+             		<input id="user_map_search_box_id" class="controls" type="text" placeholder="Search Places..">
+             		<div id="userMapContainer" style="height: 300px"></div>
+             	</div>
+             </div>
+             
+             
+             
+		</div>
+	</ion-scroll>
+	
+</ion-content>

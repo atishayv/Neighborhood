@@ -1,0 +1,216 @@
+<ion-content class="mainViewCls" scroll="false">
+	
+	
+	<div class="mainViewToolbarCls">
+		<div class="leftToolbarCls">
+			<button type="button" ng-click="toogle_left_menu()" id="main-menu-toggle" ng-class="minimise_left_menu ? 'toggle-hide' : ''"><i class="navbar-icon fa fa-bars icon"></i></button>
+			<span class="spanTitle">Neighborhood.com</span>
+		</div>
+   	   	<div ng-class="show_search_bar ? 'mainViewToolbarTextCls search' : 'mainViewToolbarTextCls'">
+   		   <span class="spanDesc">The private special network for your locality</span>
+   		   <span class="top-search-wrap">
+               <input type="text" onkeypress="Neighborhood.app.getController(\'search_controller\').on_search(event, this)">
+               <i class="top-search-close" ng-click="hide_search_bar()">x</i>
+   		   </span>
+ 		   <span class="top-menu">
+               <i class="fa fa-search" ng-click="display_search_bar()"></i>
+               <i class="fa fa-bell dropdown open faa-ring animated" id="notificationBellID" ng-click="toggle_notif_overlay()"><i class="tmn-counts">9</i></i>
+           </span>
+           
+           <!-- notification overlay -->
+           <div ng-class="show_notif_overlay ? 'notif-menu open' : 'notif-menu'">
+	            <div class="listview" id="notifications">
+	            <div class="lv-header">Notification
+	            	<i class="fa fa-check" ng-click="dismiss_notif_items()"></i>
+	            </div>
+	            <ion-list class="lv-body c-overflow enableTouchScroll" tabindex="2" >
+	                <ion-item class="lv-item" href="" ng-repeat="notif in notification_data">
+	                    <div ng-class="notif.class_name">
+	                        <div class="pull-left">
+	                            <img class="lv-img-sm" ng-src="{{notif.user_icon}}" alt="">
+	                        </div>
+	                        <div class="media-body">
+	                            <div class="lv-title">{{notif.user_name}}</div>
+	                            <small class="lv-small">{{notif.notif_text}}</small>
+	                        </div>
+	                    </div>
+	                </ion-item>
+	            </ion-list>
+	            <a class="lv-footer" href="">View Previous</a>
+	        </div>
+	    </div>
+	    <!-- notification overlay -->
+           
+           
+           
+	    </div>
+    </div>
+	
+	
+	<div ng-class="minimise_left_menu ? 'viewContentCls toggle-hide' : 'viewContentCls'">
+		<div ng-class="minimise_left_menu ? 'profilePanelCls minimised' : 'profilePanelCls'">
+			<div class="profile-block">
+					<div class="panel profile-photo">
+					<img id="profilePicId" src="images/profile_pic.png" alt="">
+						<div style="height:0px;overflow:hidden">
+						   <input type="file" id="profile_pic_input_id" name="profile_pic_input_id" />
+						</div>
+					<button style="display: none;" onclick="Neighborhood.app.getController(\'profileController\').uploadProfilePic()">Change profile Picture</button>
+				</div><br>
+				<div id="profileNameId" style="font-size: 20px;">Denise Steiner</div>
+			</div>
+			
+			<div class="navigation">
+				<ion-list>
+				  <ion-item ng-repeat="item in left_menu_items" type="item-text-wrap" menu-toggle> 
+			  			<a ng-click="go_to_app(item.app_title)"><i ng-class=item.app_icon></i><span class="mm-text mmc-dropdown-delay animated fadeIn">{{item.app_title}}</span></a>
+				  </ion-item>
+				</ion-list>
+			</div>
+		</div>
+		
+		
+		<ion-nav-view class="detailPanelCls" name="app_content"></ion-nav-view>
+		
+		<div ng-class="show_chat_overlay ? 'rightPanelCls show' : 'rightPanelCls'">
+			<div class="theme-config-box">
+		    		   <div class="spin-icon" ng-click="toggle_chat_overlay()">
+			               <i class="fa fa-weixin faa-shake animated"></i>
+			               </div>
+			               <div class="skin-setttings" ng-class="show_chat_panel ? 'skin-setttings' : 'skin-setttings minimised'">
+			               <div id="tab-1" class="tab-pane active">
+			              
+			            <div class="sidebar-tab-menu">
+			               <span ng-click="display_friend_status()" ng-class="{'tab-item select' : show_friend_status,'tab-item' : !show_friend_status}">ONLINE</span>
+			               <span ng-click="display_message_overlay()" ng-class="{'tab-item select' : show_message_overlay,'tab-item' : !show_message_overlay}">MESSAGES</span>
+			            </div>
+                        
+                        
+                        <div ng-class="{'friend-status show' : show_friend_status,'friend-status hide' : !show_friend_status,'friend-status slide-Out' : show_friend_status_overlay_transition}">
+                        
+                        <div class="chat-search">
+		                    <div class="fg-line">
+		                        <input type="text" class="form-control" placeholder="Search People">
+		                    </div>
+	                    </div>
+                        
+	                    <div role="tabpanel" class="tab-pane fade active in enableTouchScroll" id="friends">
+	                        <div class="listview">
+	                            <a class="lv-item" href="">
+	                                <div class="media">
+	                                    <div class="pull-left p-relative">
+	                                        <img class="lv-img-sm" src="images/chat/a1.jpg" alt="">
+	                                        <i class="chat-status-busy"></i>
+	                                    </div>
+	                                    <div class="media-body">
+	                                        <div class="lv-title">Jonathan Morris</div>
+	                                        <small class="lv-small">Available</small>
+	                                    </div>
+	                                </div>
+	                            </a>
+	                        </div>
+	                    </div>
+	                    
+	                </div>
+                        
+                        
+                        
+                        <div ng-class="{'sidebar-overlay show' : show_message_overlay,'sidebar-overlay hide' : !show_message_overlay,'sidebar-overlay slide-Out' : show_message_overlay_transition}">
+                        
+	                        <div class="sidebar-title">
+		                        <h3> <i class="fa fa-comments-o"></i> Latest Notes</h3>
+		                        <small><i class="fa fa-tim"></i> You have 10 new message.</small>
+		                    </div>
+		                    
+		                    <div class="sidebar-list enableTouchScroll">
+                            <div class="sidebar-message">
+                                <a href="#">
+                                    <div class="pull-left text-center">
+                                        <img alt="image" class="img-circle message-avatar" src="resources/images/chat/a1.jpg">
+
+                                        <div class="m-t-xs">
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-warning"></i>
+                                        </div>
+                                    </div>
+                                    <div class="media-body">There are many variations of passages of Lorem Ipsum available.
+                                        <br>
+                                        <small class="text-muted">Today 4:21 pm</small>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+
+                        <div class="small-chat-box active">
+
+    		            <div class="heading" draggable="true">
+    		                <i class="fa fa-times pull-right" ng-click="toggle_chat_panel()"></i>
+    		                Small chat
+    		            </div>
+    		
+    		            <div class="slimScrollDiv enableTouchScroll"><div class="content">
+    		
+    		                <div class="left">
+    		                    <div class="author-name">Monica Jackson <small class="chat-date">10:02 am
+    		                    </small>
+    		                    </div>
+    		                    <div class="chat-message active">Lorem Ipsum is simply dummy text input.
+    		                    </div>
+    		
+    		                </div>
+    		                <div class="right">
+    		                    <div class="author-name">Mick Smith
+    		                        <small class="chat-date">11:24 am
+    		                        </small>
+    		                    </div>
+    		                    <div class="chat-message">Lorem Ipsum is simpl.
+    		                    </div>
+    		                </div>
+    		                <div class="left">
+    		                    <div class="author-name">Alice Novak
+    		                        <small class="chat-date">08:45 pm
+    		                        </small>
+    		                    </div>
+    		                    <div class="chat-message active">Check this stock char.
+    		                    </div>
+    		                </div>
+    		                <div class="right">
+    		                    <div class="author-name">Anna Lamson
+    		                        <small class="chat-date">11:24 am
+    		                        </small>
+    		                    </div>
+    		                    <div class="chat-message">The standard chunk of Lorem Ipsum
+    		                    </div>
+    		                </div>
+    		                <div class="left">
+    		                    <div class="author-name">Mick Lane
+    		                        <small class="chat-date">08:45 pm
+    		                        </small>
+    		                    </div>
+    		                    <div class="chat-message active">I belive that. Lorem Ipsum is simply dummy text.
+    		                    </div>
+    		                </div>
+    		
+    		
+    		            </div></div>
+    		            <div class="form-chat">
+    		                <div class="input-group input-group-sm"><input type="text" class="form-control"> <span class="input-group-btn"> <button class="btn btn-primary" type="button">Send
+    		                </button> </span></div>
+    		            </div>
+    		
+    		        </div>
+    		        
+                    </div>
+                    </div>
+			        </div>
+		</div>
+		
+		
+		
+		
+		 
+	</div>
+
+</ion-content>

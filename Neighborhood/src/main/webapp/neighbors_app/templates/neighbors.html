@@ -1,0 +1,37 @@
+<ion-content class="contactViewCls" scroll="false" >
+	
+	<ion-scroll direction="y" style="height: 100%;">
+		<div class="contactPanelCls">
+			<div class="wrapper wrapper-content">
+		    	        <div class="row">
+		            <div class="col-lg-4" ng-repeat="neighbor in neighbors_data">
+		                <div class="contact-box">
+		                    <a href="">
+		                    <div class="col-sm-4">
+		                        <div class="text-center">
+		                            <img alt="image" class="img-circle m-t-xs img-responsive" ng-src="{{neighbor.image}}">
+		                            <div class="m-t-xs font-bold">{{neighbor.job_title}}</div>
+		                        </div>
+		                    </div>
+		                    <div class="col-sm-8">
+		                        <h3><strong>{{neighbor.name}}</strong></h3>
+		                        <p><i class="fa fa-map-marker"></i> {{neighbor.home_address}}</p>
+		                        <address>
+		                            <strong>{{neighbor.office_name}}</strong><br>
+		                            {{neighbor.office_address_line_1}}<br>
+		                            {{neighbor.office_address_line_2}}<br>
+		                            <abbr title="Phone">P:</abbr> {{neighbor.contact_no}}
+		                        </address>
+		                    </div>
+		                    <div class="clearfix"></div>
+		                        </a>
+		                </div>
+		            </div>
+		            
+		        </div>
+		        </div>
+		
+		</div>
+	</ion-scroll>
+	
+</ion-content>
