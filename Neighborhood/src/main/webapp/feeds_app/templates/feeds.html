@@ -4,14 +4,14 @@
 	
 	<div class="timelinePanelCls">
 		<ul class="tab-nav tn-justified" tabindex="1">
-   		   <li onclick="Neighborhood.app.getController(\'MainController\').changePostAreaFormat(this,\'Feeds\')" class="active waves-effect"><span>Post feed</span></li> 
-   		   <li onclick="Neighborhood.app.getController(\'MainController\').changePostAreaFormat(this,\'Issue\')" class="waves-effect"><span>Raise society issue</span></li> 
-   		   <li onclick="Neighborhood.app.getController(\'MainController\').changePostAreaFormat(this,\'Question\')" class="waves-effect"><span>Ask a question</span></li> 
-   		   <li onclick="Neighborhood.app.getController(\'MainController\').changePostAreaFormat(this,\'Info\')" class="waves-effect"><span>Provide information</span></li>
+   		   <li ng-click="change_post_feed_box_format('Feeds')" ng-class="post_category=='Feeds' ? 'active waves-effect' : 'waves-effect'"><span>Post feed</span></li> 
+   		   <li ng-click="change_post_feed_box_format('Issue')" ng-class="post_category=='Issue' ? 'active waves-effect' : 'waves-effect'"><span>Raise society issue</span></li> 
+   		   <li ng-click="change_post_feed_box_format('Question')" ng-class="post_category=='Question' ? 'active waves-effect' : 'waves-effect'"><span>Ask a question</span></li> 
+   		   <li ng-click="change_post_feed_box_format('Info')" ng-class="post_category=='Info' ? 'active waves-effect' : 'waves-effect'"><span>Provide information</span></li>
    		   </ul>
   		   
   		   <div class="quick-update">
-  		   			<textarea rows="1" class="form-control title" style="display:none;" placeholder="Write a topic..."></textarea>
+  		   			<textarea rows="1" class="form-control title" ng-if="post_category=='Issue'" placeholder="Write a topic..."></textarea>
 				<textarea rows="6" class="form-control desc" placeholder="Type Something..."></textarea>
 				<div class="qu-buttons">
 					<div class="pull-left">
@@ -27,10 +27,14 @@
 			</div>
   		   
   		   <div class="timeline" id="timelinePostId">
-  		   		<div class="tl-header now">Now</div>
-  		   		<div ng-repeat="data in timeline_data">
+  		   		
+  		   		<div ng-repeat="data in timeline_data track by $index">
+  		   			<div class="tl-header" ng-if="get_time_header('Now',data.time)">Now</div>
+  		   			<div class="tl-header" ng-if="get_time_header('Today',data.time)">Today</div>
+  		   			<div class="tl-header" ng-if="get_time_header('Yesterday',data.time)">Yesterday</div>
+  		   			<div class="tl-header" ng-if="get_time_header('Previous',data.time)">Previous</div>
   		   			<div class="tl-entry">
-						<div class="tl-time">{{data.time}}</div>	<!-- post time -->
+						<div class="tl-time">{{data.time_label}}</div>	<!-- post time -->
 						<div class="tl-icon bg-success">
 							<img ng-src="{{data.userPic}}" alt="">		<!-- post user pic -->
 						</div>
