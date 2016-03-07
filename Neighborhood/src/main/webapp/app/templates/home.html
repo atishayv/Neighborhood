@@ -51,13 +51,13 @@
 		<div ng-class="minimise_left_menu ? 'profilePanelCls minimised' : 'profilePanelCls'">
 			<div class="profile-block">
 					<div class="panel profile-photo">
-					<img id="profilePicId" src="images/profile_pic.png" alt="">
+					<img id="profilePicId" ng-src="{{user_data_obj.profile_pic}}" alt="">
 						<div style="height:0px;overflow:hidden">
 						   <input type="file" id="profile_pic_input_id" name="profile_pic_input_id" />
 						</div>
 					<button style="display: none;" onclick="Neighborhood.app.getController(\'profileController\').uploadProfilePic()">Change profile Picture</button>
 				</div><br>
-				<div id="profileNameId" style="font-size: 20px;">Denise Steiner</div>
+				<div id="profileNameId" style="font-size: 20px;">{{user_data_obj.first_name}} {{user_data_obj.last_name}}</div>
 			</div>
 			
 			<div class="navigation">
