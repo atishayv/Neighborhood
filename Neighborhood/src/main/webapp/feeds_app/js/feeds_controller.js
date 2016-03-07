@@ -29,8 +29,8 @@ angular.module('neighborhood.feeds_app', [])
 		    	            	description  : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
 		    	            	imageUrl : '',
 		    	            	imageComment : '',
-		    	            	time_label : '20min ago',
-		    	            	time : new Date('03/06/2016 13:06').getTime(),
+		    	            	time_label : '20 min ago',
+		    	            	time : new Date('03/07/2016 14:00').getTime(),
 		    	            	commentsArr : []
 		    	            },
 		    	            { userName : '' ,
@@ -39,8 +39,8 @@ angular.module('neighborhood.feeds_app', [])
 		    	            	description  : '<a href="#">Denise Steiner</a> shared an image on <a href="#">The Gallery</a>',
 		    	            	imageUrl : '../feeds_app/images/timeline/signin-bg-5.jpg',
 		    	            	imageComment : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-		    	            	time_label : '1hr ago',
-		    	            	time : new Date('03/06/2016 12:06').getTime(),
+		    	            	time_label : '1 h ago',
+		    	            	time : new Date('03/07/2016 14:06').getTime(),
 		    	            	commentsArr : []
 		    	            },
 		    	            { userName : '' ,
@@ -49,8 +49,8 @@ angular.module('neighborhood.feeds_app', [])
 		    	            	description  : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
 		    	            	imageUrl : '',
 		    	            	imageComment : '',
-		    	            	time_label : '3h ago',
-		    	            	time : new Date('03/05/2016 12:06').getTime(),
+		    	            	time_label : '3 h ago',
+		    	            	time : new Date('03/07/2016 08:06').getTime(),
 		    	            	commentsArr : []
 		    	            },
 		    	            { userName : '' ,
@@ -59,8 +59,8 @@ angular.module('neighborhood.feeds_app', [])
 		    	            	description  : '<a href="#">Denise Steiner</a> followed <a href="#">Johg Doe</a>',
 		    	            	imageUrl : '',
 		    	            	imageComment : '',
-		    	            	time_label : '4h ago',
-		    	            	time : new Date('03/05/2016 11:06').getTime(),
+		    	            	time_label : '4 h ago',
+		    	            	time : new Date('03/06/2016 11:06').getTime(),
 		    	            	commentsArr : []
 		    	            },
 		    	            //Yesterday
@@ -71,7 +71,7 @@ angular.module('neighborhood.feeds_app', [])
 		    	            	imageUrl : '',
 		    	            	imageComment : '',
 		    	            	time_label : '9:02 pm',
-		    	            	time : new Date('03/03/2016 12:06').getTime(),
+		    	            	time : new Date('03/06/2016 12:06').getTime(),
 		    	            	commentsArr : [{
 		    	            		commentText : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
 		    	            		time : '2 days ago',
@@ -116,46 +116,72 @@ angular.module('neighborhood.feeds_app', [])
 	
 	$scope.post_category = 'Feeds';
 	$scope.time_header_label=[];
-	$scope.time_header_label_count=0;
+	$scope.time_header_index=[];
+	
+	$scope.feed_desc = '';
+	$scope.feed_title = '';
+	$scope.update_feed_title = function(feed_title){
+		$scope.feed_title = feed_title;
+	};
+	$scope.update_feed_desc = function(feed_desc){
+		$scope.feed_desc = feed_desc;
+	};
+	
 		
 	$scope.change_post_feed_box_format = function(category){
 		$scope.post_category = category;
 	};	
 	
-	$scope.get_time_header = function(label,feed_time){
+	$scope.get_time_header = function(feed_time,feed_obj,index){
 		var time = new Date().getTime();
 		var diff_time_in_hr = (time - feed_time)/(1000*60*60);
 		var returnVal = false;
+		var time_header = '';
 		if(diff_time_in_hr<=1){
 			// now time
-			if(label=='Now' && $scope.time_header_label.indexOf('Now')==-1){
-				$scope.time_header_label.push('Now');
-				returnVal = true;
-			}
+			time_header = 'Now';
 			
 		}else if(diff_time_in_hr>1 && diff_time_in_hr<=24){
 			//today
-			if(label=='Today' && $scope.time_header_label.indexOf('Today')==-1){
-				$scope.time_header_label.push('Today');
-				returnVal = true;
-			}
+			time_header = 'Today';
 			
 		}else if(diff_time_in_hr>24 && diff_time_in_hr<=48){
 			//yesterday
-			if(label=='Yesterday' && $scope.time_header_label.indexOf('Yesterday')==-1){
-				$scope.time_header_label.push('Yesterday');
-				returnVal = true;
-			}
+			time_header = 'Yesterday';
+			
 		}else{
 			//previous
-			if(label=='Previous' && $scope.time_header_label.indexOf('Previous')==-1){
-				$scope.time_header_label.push('Previous');
-				returnVal = true;
-			}
+			time_header = 'Previous';
 		}
-		$scope.time_header_label_count++;
-		console.log("++++++++++++++++++++++++++++++++++++++++++++++++"+$scope.time_header_label_count)
+		
+		
+		if($scope.time_header_index.indexOf(index)==-1 && $scope.time_header_label.indexOf(time_header)==-1){
+			feed_obj.time_heading = time_header;
+			$scope.time_header_index.push(index);
+			$scope.time_header_label.push(time_header);
+			returnVal = true;
+		}else if($scope.time_header_index.indexOf(index)>=0){
+			feed_obj.time_heading = time_header;
+			returnVal = true;
+		}
+		
 		return returnVal;
 	};
+	
+	$scope.submit_feed = function(){
+		alert($scope.feed_desc);
+		alert($scope.feed_title);
+		var feed_obj = { user_id : '' ,
+            	feed_title : 'Lorem ipsum dolor sit amet',
+            	feed_desc  : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            	feed_image : '',
+            	time_label : '20 min ago',
+            	post_time : new Date('03/07/2016 14:00').getTime(),
+            	likes : 0,
+            	category : '',
+            	locality_id : ''
+            }
+	};
+	
 		
 }]);

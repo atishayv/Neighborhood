@@ -11,8 +11,8 @@
    		   </ul>
   		   
   		   <div class="quick-update">
-  		   			<textarea rows="1" class="form-control title" ng-if="post_category=='Issue'" placeholder="Write a topic..."></textarea>
-				<textarea rows="6" class="form-control desc" placeholder="Type Something..."></textarea>
+  		   			<textarea rows="1" class="form-control title" ng-if="post_category=='Issue'" placeholder="Write a topic..." ng-model="feed_title" ng-change="update_feed_title(feed_title)"></textarea>
+				<textarea rows="6" class="form-control desc" placeholder="Type Something..." ng-model="feed_desc" ng-change="update_feed_desc(feed_desc)"></textarea>
 				<div class="qu-buttons">
 					<div class="pull-left">
 						<a href="#"><i class="fa fa-paperclip"></i></a> &nbsp;
@@ -20,7 +20,7 @@
 						<a href="#"><i class="fa fa-film"></i></a>
 					</div>
 					<div class="pull-right">
-						<button class="btn btn-info btn-xs">Submit</button>  <button class="btn btn-default btn-xs">Reset</button>
+						<button class="btn btn-info btn-xs" ng-click="submit_feed()">Submit</button>  <button class="btn btn-default btn-xs">Reset</button>
 					</div>
 					<div class="clearfix"></div>
 				</div>
@@ -29,10 +29,10 @@
   		   <div class="timeline" id="timelinePostId">
   		   		
   		   		<div ng-repeat="data in timeline_data track by $index">
-  		   			<div class="tl-header" ng-if="get_time_header('Now',data.time)">Now</div>
-  		   			<div class="tl-header" ng-if="get_time_header('Today',data.time)">Today</div>
+  		   			<div class="tl-header" ng-if="get_time_header(data.time,data,$index)">{{data.time_heading}}</div>
+  		   			<!-- <div class="tl-header" ng-if="get_time_header('Today',data.time)">Today</div>
   		   			<div class="tl-header" ng-if="get_time_header('Yesterday',data.time)">Yesterday</div>
-  		   			<div class="tl-header" ng-if="get_time_header('Previous',data.time)">Previous</div>
+  		   			<div class="tl-header" ng-if="get_time_header('Previous',data.time)">Previous</div> -->
   		   			<div class="tl-entry">
 						<div class="tl-time">{{data.time_label}}</div>	<!-- post time -->
 						<div class="tl-icon bg-success">
@@ -54,6 +54,13 @@
 								<a>{{data.commentsArr[0].user_name}}</a> commented {{data.commentsArr[0].time}}			<!-- commented user time and name -->
 								<div class="well well-sm" style="margin: 6px 0 0 0;">{{data.commentsArr[0].commentText}}  <!-- actual comment -->
 								</div>
+							</div>
+							
+							
+							<!-- comment input box -->
+							<div class="comment_input_section">
+								<textarea class="form-control auto-size" placeholder="Write a comment..."></textarea>
+								<button class="m-t-15 btn btn-primary btn-sm waves-effect">Post</button>
 							</div>
 							
 						</div>

@@ -11,10 +11,11 @@ neighborhood_app.config(function($stateProvider, $urlRouterProvider) {
 
 
 angular.module('neighborhood.login_app', [])
-.controller('login_controller', ['$scope','$state','$ionicPopup','$http',function($scope,
+.controller('login_controller', ['$scope','$state','$ionicPopup','$http','user_data_service',function($scope,
 		$state,
 		$ionicPopup,
-		$http
+		$http,
+		user_data_service
 	){
 	
 	
@@ -65,7 +66,7 @@ angular.module('neighborhood.login_app', [])
     	}else{
     		var req = {
     				 method: 'POST',
-    				 url: 'http://localhost:9080/Neighborhood/requestServlet',
+    				 url: deployment_location + '/Neighborhood/requestServlet',
     				 data: { 
     					 	action : 'new_user_register',
     					 	first_name: $scope.first_name,
@@ -129,7 +130,7 @@ angular.module('neighborhood.login_app', [])
     	}else{
     		var req = {
    				 method: 'POST',
-   				 url: 'http://localhost:8080/Neighborhood/requestServlet',
+   				 url: deployment_location + '/Neighborhood/requestServlet',
    				 data: { 
    					 	action : 'login',
    					 	password : $scope.password,
@@ -146,15 +147,13 @@ angular.module('neighborhood.login_app', [])
     		        });
     			}else{
     				//adding the user deatils into store
-    				var response  = JSON.parse(result.data)[0]
-    				Ext.getStore('userProfileStore').add(response);
+    				var response  = result.data[0];
     				
-    				Neighborhood.app.getController('MainController').showMainView(true);
+    				user_data_service.set_user_data_obj(response);
     				
-    				//setting the userName and profilePic to view
-    				if(response.profile_pic)
-    					$('#profilePicId')[0].src = response.profile_pic;
-    				$('#profileNameId')[0].innerText = (response.first_name ? response.first_name+" " : "") + (response.last_name ? response.last_name : "");
+    				localStorage.setItem('user_id',response.user_id);
+    				
+    				$state.transitionTo('home.feeds');
     			}
     		}, function(result){
     			console.log(result);

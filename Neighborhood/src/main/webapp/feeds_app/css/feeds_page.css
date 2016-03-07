@@ -173,3 +173,12 @@
     margin: 0;
     border-color: #e2e2e2;
 }
+.feedsViewCls .timeline .tl-entry .comment_input_section{
+	    margin-top: 11px;
+}
+.feedsViewCls .timeline .tl-entry .comment_input_section button{
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 10px rgba(0, 0, 0, 0.12);
+    margin: 10px;
+    background-color: #A560DC;
+    border-color: #9D3AEC;
+}
