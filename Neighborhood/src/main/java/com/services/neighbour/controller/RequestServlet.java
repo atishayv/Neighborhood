@@ -142,6 +142,24 @@ public class RequestServlet extends HttpServlet{
 						sendResponse(resp,responseArr.toString().getBytes("UTF-8"));
 				    	
 				    }
+				}else if(requestObject.getString("action").equalsIgnoreCase("get_user_info")){
+					String user_id = requestObject.getString("user_id");
+					
+					
+				    String sql;
+				    sql = "SELECT * FROM USER_DATA WHERE user_id='"+user_id+"'";
+				    stmt = connection.prepareStatement(sql);
+				    rs = stmt.executeQuery();
+				    if (!rs.isBeforeFirst() ) {
+				    	String responseStr = "Inavlid User Id";
+			    		resp.setHeader("Cache-Control", "no-cache");
+						sendResponse(resp,responseStr.getBytes("UTF-8")); 
+				    }else{
+				    	JSONArray responseArr = convertToArray(rs);
+				    	resp.setHeader("Cache-Control", "no-cache");
+						sendResponse(resp,responseArr.toString().getBytes("UTF-8"));
+				    	
+				    }
 				}else if(requestObject.getString("action").equalsIgnoreCase("updateUserData")){
 					JSONObject data = new JSONObject(requestObject.getString("data"));
 					String updateString = "";
@@ -265,6 +283,25 @@ public class RequestServlet extends HttpServlet{
 					
 		    		resp.setHeader("Cache-Control", "no-cache");
 					sendResponse(resp,"Successfully updated profile pic".getBytes("UTF-8"));
+				}else if(requestObject.getString("action").equalsIgnoreCase("post_feed")){
+					String feed_title = requestObject.getString("feed_title");
+					String feed_desc = requestObject.getString("feed_desc");
+					
+					
+				    String sql;
+				    sql = "SELECT * FROM USER_DATA WHERE user_id=''";
+				    stmt = connection.prepareStatement(sql);
+				    rs = stmt.executeQuery();
+				    if (!rs.isBeforeFirst() ) {
+				    	String responseStr = "Inavlid User Id";
+			    		resp.setHeader("Cache-Control", "no-cache");
+						sendResponse(resp,responseStr.getBytes("UTF-8")); 
+				    }else{
+				    	JSONArray responseArr = convertToArray(rs);
+				    	resp.setHeader("Cache-Control", "no-cache");
+						sendResponse(resp,responseArr.toString().getBytes("UTF-8"));
+				    	
+				    }
 				}
 				
 	      

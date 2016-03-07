@@ -1,8 +1,11 @@
 angular.module('neighborhood.home_app', [])
-.controller('home_controller', ['$scope','$state','$ionicSideMenuDelegate','$timeout',function($scope,
+.controller('home_controller', ['$scope','$state','$ionicSideMenuDelegate','$timeout','$http','$ionicPopup','user_data_service',function($scope,
 		$state,
 		$ionicSideMenuDelegate,
-		$timeout
+		$timeout,
+		$http,
+		$ionicPopup,
+		user_data_service
 	){
 	
 	$scope.left_menu_items = [
@@ -75,8 +78,58 @@ angular.module('neighborhood.home_app', [])
 	
 	$scope.minimise_left_menu = false;
 	
-	//by default go to feeds view
-	$state.transitionTo('home.feeds');
+	
+	$scope.user_data_obj = {
+			profile_pic : 'images/profile_pic.png'
+	}
+	
+	
+	if(!localStorage.getItem('user_id')){
+		$state.transitionTo("login");
+	}else{
+		//fetch the user data from server
+		var req = {
+  				 method: 'POST',
+  				 url: deployment_location + '/Neighborhood/requestServlet',
+  				 data: { 
+  					 	action : 'get_user_info',
+  					 	user_id : localStorage.getItem('user_id'),
+  				 	   }
+  				};
+   		
+   		$http(req).then(function(result){
+   			if(result.data=="Inavlid User Id"){
+   				localStorage.clear();
+   				$ionicPopup.alert({
+   	                title:"<b>Error</b>",
+   	                template: "Please login again to continue"
+   		        });
+   				$state.transitionTo("login");
+   			}else{
+   				//adding the user deatils into store
+   				var response  = result.data[0];
+   				
+   				user_data_service.set_user_data_obj(response);
+   				
+   				$scope.user_data_obj = response;
+   				
+   				localStorage.setItem('user_id',response.user_id);
+   				
+   				//by default go to feeds view
+   				$state.transitionTo('home.feeds');
+   			}
+   		}, function(result){
+   			console.log(result);
+   			$ionicPopup.alert({
+	                title:"<b>Error</b>",
+	                template: "Please login again to continue"
+		        });
+		    $state.transitionTo("login");
+   		});
+		
+	}
+	
+	
 	
 	$scope.display_search_bar = function(){
 		$scope.show_search_bar = true;
@@ -139,13 +192,6 @@ angular.module('neighborhood.home_app', [])
 		
 		
 	};
-	
-	if(!localStorage.getItem('userId')){
-		$state.transitionTo("login");
-	}else{
-		
-	}
-	
 	
 	
 	$scope.toogle_left_menu = function(){
