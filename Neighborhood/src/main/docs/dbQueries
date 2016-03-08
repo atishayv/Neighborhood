@@ -4,10 +4,15 @@
 CREATE TABLE LOCALITY_DATA(
 locality_id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
 profile_pic varchar(255),
+cover_pic varchar(255),
 name varchar(255),
 area TEXT,
 address varchar(500),
-description varchar(1000)
+description varchar(1000),
+overview varchar(1000),
+specifications varchar(1000),
+latitude varchar(255),
+longitude varchar(255)
 );
 
 CREATE TABLE USER_DATA
