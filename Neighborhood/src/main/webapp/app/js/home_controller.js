@@ -1,10 +1,11 @@
 angular.module('neighborhood.home_app', [])
-.controller('home_controller', ['$scope','$state','$ionicSideMenuDelegate','$timeout','$http','$ionicPopup','user_data_service',function($scope,
+.controller('home_controller', ['$scope','$state','$ionicSideMenuDelegate','$timeout','$http','$ionicPopup','$q','user_data_service',function($scope,
 		$state,
 		$ionicSideMenuDelegate,
 		$timeout,
 		$http,
 		$ionicPopup,
+		$q,
 		user_data_service
 	){
 	
@@ -88,18 +89,8 @@ angular.module('neighborhood.home_app', [])
 		$state.transitionTo("login");
 	}else{
 		//fetch the user data from server
-		var req = {
-  				 method: 'POST',
-  				 url: deployment_location + '/Neighborhood/requestServlet',
-  				 data: { 
-  					 	action : 'get_user_info',
-  					 	user_id : localStorage.getItem('user_id'),
-  				 	   }
-  				};
-   		
-   		$http(req).then(function(result){
-   			if(result.data=="Inavlid User Id"){
-   				localStorage.clear();
+		user_data_service.get_user_data_obj(function(result){
+			if(result=="Inavlid User Id"){
    				$ionicPopup.alert({
    	                title:"<b>Error</b>",
    	                template: "Please login again to continue"
@@ -107,25 +98,19 @@ angular.module('neighborhood.home_app', [])
    				$state.transitionTo("login");
    			}else{
    				//adding the user deatils into store
-   				var response  = result.data[0];
-   				
-   				user_data_service.set_user_data_obj(response);
-   				
-   				$scope.user_data_obj = response;
-   				
-   				localStorage.setItem('user_id',response.user_id);
+   				$scope.user_data_obj = result;
    				
    				//by default go to feeds view
    				$state.transitionTo('home.feeds');
    			}
-   		}, function(result){
-   			console.log(result);
+		},function(result){
+			console.log(result);
    			$ionicPopup.alert({
 	                title:"<b>Error</b>",
 	                template: "Please login again to continue"
 		        });
 		    $state.transitionTo("login");
-   		});
+		});
 		
 	}
 	
@@ -211,6 +196,45 @@ angular.module('neighborhood.home_app', [])
 		}else if(title=="My Neighborhood"){
 			$state.transitionTo('home.locality');
 		}
-	}
+	};
+	
+	$scope.canceller = '';
+	$scope.search_home = function(search_term){
+		if($scope.canceller !=''){
+			$scope.canceller.resolve();
+			$scope.canceller = '';
+		}
+
+		
+		$scope.canceller = $q.defer();
+
+	    var requestPromise = $http({
+	    	method: 'POST',
+			 url: deployment_location + '/Neighborhood/requestServlet',
+			 data: { 
+				 	action : 'search_home',
+				 	search_term : search_term,
+			 	   },
+	        timeout: $scope.canceller.promise
+	    });
+
+	    requestPromise.
+	        success(function(data, status, headers, config) {
+	            // Everything fine and not cancelled
+	        	console.log(data);
+	        }).
+	        error(function(data, status, headers, config) {
+	        	console.log(data);
+	        	if(data.status === 0) {
+	                // Request cancelled
+	            }
+	            else {
+	                // Other error
+	                throw 'Error ' + status
+	            }
+	        });
+
+		
+	};
 	
 }]);

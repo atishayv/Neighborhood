@@ -79,6 +79,23 @@ body{
     background-position: 10px center;
     display: inline;	
 }
+.mainViewCls .mainViewToolbarCls .mainViewToolbarTextCls .top-search-wrap input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    white;
+}
+.mainViewCls .mainViewToolbarCls .mainViewToolbarTextCls .top-search-wrap input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    white;
+   opacity:  1;
+}
+.mainViewCls .mainViewToolbarCls .mainViewToolbarTextCls .top-search-wrap input::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    white;
+   opacity:  1;
+}
+.mainViewCls .mainViewToolbarCls .mainViewToolbarTextCls .top-search-wrap input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    white;
+}
+.mainViewCls .mainViewToolbarCls .mainViewToolbarTextCls .top-search-wrap input:placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
+  color:    white;
+}
 .mainViewCls .mainViewToolbarCls .mainViewToolbarTextCls .top-search-wrap .top-search-close{
     font-size: 23px;
     font-style: normal;
@@ -811,3 +828,21 @@ body{
 	width:96%;	
 }
 /*app area content cls css*/
+
+
+/*search popup css start*/
+.mainViewCls .mainViewToolbarCls .mainViewToolbarTextCls.search .search_popup_overlay{
+    padding: 0 10px 0 40px;
+    font-size: 18px;
+    margin: 10px;
+    width: 500px;
+    position: absolute;
+    z-index: 500;
+    color: white;
+    background: #DFAEEF;
+    left: 22.8%;
+    top: 71%;
+    border: 1px solid black;
+    text-align: left;
+}	
+/*search popup css end*/

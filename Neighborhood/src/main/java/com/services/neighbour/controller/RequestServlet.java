@@ -284,8 +284,15 @@ public class RequestServlet extends HttpServlet{
 		    		resp.setHeader("Cache-Control", "no-cache");
 					sendResponse(resp,"Successfully updated profile pic".getBytes("UTF-8"));
 				}else if(requestObject.getString("action").equalsIgnoreCase("post_feed")){
+					
 					String feed_title = requestObject.getString("feed_title");
 					String feed_desc = requestObject.getString("feed_desc");
+					String user_id = requestObject.getString("user_id");
+					String feed_image = requestObject.getString("feed_image");
+					String post_time = requestObject.getString("post_time");
+					String likes = requestObject.getString("likes");
+					String category = requestObject.getString("category");
+					String locality_id = requestObject.getString("locality_id");
 					
 					
 				    String sql;
@@ -302,6 +309,50 @@ public class RequestServlet extends HttpServlet{
 						sendResponse(resp,responseArr.toString().getBytes("UTF-8"));
 				    	
 				    }
+				}else if(requestObject.getString("action").equalsIgnoreCase("search_home")){
+					String search_term = requestObject.getString("search_term");
+					
+					
+				    String sql;
+				    sql = "SELECT * FROM LOCALITY_DATA WHERE name LIKE '%"+search_term+"%'";
+				    JSONArray responseArr = new JSONArray();
+				    stmt = connection.prepareStatement(sql);
+				    rs = stmt.executeQuery();
+				    JSONArray responseArr1 = new JSONArray();
+				    if (!rs.isBeforeFirst() ) {
+				    	System.out.println("Did not get any data from locality search..");
+				    }else{
+				    	responseArr1 = convertToArray(rs);
+				    }
+				    
+				    
+				    sql = "SELECT * FROM USER_DATA WHERE first_name LIKE '%"+search_term+"%'";
+				    stmt = connection.prepareStatement(sql);
+				    rs = stmt.executeQuery();
+				    JSONArray responseArr2 = new JSONArray();
+				    if (!rs.isBeforeFirst() ) {
+				    	System.out.println("Did not get any data from user data search..");
+				    }else{
+				    	responseArr2 = convertToArray(rs);
+				    }
+				    
+				    for (int i = 0; i < responseArr1.length(); i++) {
+				    	responseArr.put(responseArr1.get(i));
+				    }
+				    for (int i = 0; i < responseArr2.length(); i++) {
+				    	responseArr.put(responseArr2.get(i));
+				    }
+				    
+				    if(responseArr.length()==0){
+				    	String responseStr = "No matching results...";
+			    		resp.setHeader("Cache-Control", "no-cache");
+						sendResponse(resp,responseStr.getBytes("UTF-8")); 
+				    }else{
+				    	resp.setHeader("Cache-Control", "no-cache");
+						sendResponse(resp,responseArr.toString().getBytes("UTF-8"));
+				    }
+				    
+				    
 				}
 				
 	      
