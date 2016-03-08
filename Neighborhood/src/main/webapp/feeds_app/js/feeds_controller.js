@@ -16,13 +16,14 @@ neighborhood_app.config(function($stateProvider, $urlRouterProvider) {
 
 
 angular.module('neighborhood.feeds_app', [])
-.controller('feeds_controller', ['$scope','$state','$ionicPopup','$http',function($scope,
+.controller('feeds_controller', ['$scope','$state','$ionicPopup','$http','user_data_service',function($scope,
 		$state,
 		$ionicPopup,
-		$http
+		$http,
+		user_data_service
 	){
-	
-		$scope.timeline_data= [
+		
+		$scope.timeline_data = [
 		       	            { userName : '' ,
 		    	            	userPic : '../feeds_app/images/timeline/signin-bg-5.jpg',
 		    	            	title : 'Lorem ipsum dolor sit amet',
@@ -112,8 +113,39 @@ angular.module('neighborhood.feeds_app', [])
 		    	            }
 		    	            
 		    	            ];
+		
+		
+	
+	//get user details
+	$scope.user_data_obj = '';
+	user_data_service.get_user_data_obj(function(result){
+		if(result=="Inavlid User Id"){
+				$ionicPopup.alert({
+	                title:"<b>Error</b>",
+	                template: "Please login again to continue"
+		        });
+				$state.transitionTo("login");
+			}else{
+				//adding the user deatils into store
+				$scope.user_data_obj = result;
+				
+				if(!$scope.user_data_obj.locality_id){
+					$scope.show_welcome_msg = true;
+				}
+			}
+	},function(result){
+		console.log(result);
+			$ionicPopup.alert({
+                title:"<b>Error</b>",
+                template: "Please login again to continue"
+	        });
+	    $state.transitionTo("login");
+	});
 	
 	
+	$scope.show_welcome_msg = false;
+	
+		
 	$scope.post_category = 'Feeds';
 	$scope.time_header_label=[];
 	$scope.time_header_index=[];
@@ -181,6 +213,10 @@ angular.module('neighborhood.feeds_app', [])
             	category : '',
             	locality_id : ''
             }
+	};
+	
+	$scope.show_search_panel = function(){
+		angular.element(document.getElementById('main_view_id')).scope().display_search_bar();
 	};
 	
 		

@@ -1,4 +1,4 @@
-<ion-content class="mainViewCls" scroll="false">
+<ion-content class="mainViewCls" scroll="false" id="main_view_id">
 	
 	
 	<div class="mainViewToolbarCls">
@@ -9,8 +9,12 @@
    	   	<div ng-class="show_search_bar ? 'mainViewToolbarTextCls search' : 'mainViewToolbarTextCls'">
    		   <span class="spanDesc">The private special network for your locality</span>
    		   <span class="top-search-wrap">
-               <input type="text" onkeypress="Neighborhood.app.getController(\'search_controller\').on_search(event, this)">
+               <input type="text" ng-change="search_home(search_term)" ng-model="search_term" placeholder="Search for locality, neighbors....">
                <i class="top-search-close" ng-click="hide_search_bar()">x</i>
+               
+               <div class="search_popup_overlay">
+               		<div>Searching .... </div>
+               </div>
    		   </span>
  		   <span class="top-menu">
                <i class="fa fa-search" ng-click="display_search_bar()"></i>

@@ -3,14 +3,28 @@
 	<ion-scroll direction="y" style="height: 100%;">
 	
 	<div class="timelinePanelCls">
-		<ul class="tab-nav tn-justified" tabindex="1">
+	
+		<div class="welcome_card_cls" ng-if="show_welcome_msg==true">
+	   		<div class="welcome_greet">Hi!! {{user_data_obj.first_name}}</div>
+	   		<div class="welcome_msg">
+	   			<div class="welcome_msg_1">Thanks for joining Neighborhood..</div>
+	   			<div class="welcome_msg_2">We are looking forward to help you explore your locality, meet new friends and be connected with people around you. To see what others are doing around you, please join a neighborhood...</div>
+	   			<button ng-click="show_search_panel()">Join neighborhood</button>
+	   		</div>
+	   </div>
+  		   
+		<ul class="tab-nav tn-justified" tabindex="1"  ng-if="show_welcome_msg==false">
    		   <li ng-click="change_post_feed_box_format('Feeds')" ng-class="post_category=='Feeds' ? 'active waves-effect' : 'waves-effect'"><span>Post feed</span></li> 
    		   <li ng-click="change_post_feed_box_format('Issue')" ng-class="post_category=='Issue' ? 'active waves-effect' : 'waves-effect'"><span>Raise society issue</span></li> 
    		   <li ng-click="change_post_feed_box_format('Question')" ng-class="post_category=='Question' ? 'active waves-effect' : 'waves-effect'"><span>Ask a question</span></li> 
    		   <li ng-click="change_post_feed_box_format('Info')" ng-class="post_category=='Info' ? 'active waves-effect' : 'waves-effect'"><span>Provide information</span></li>
    		   </ul>
   		   
-  		   <div class="quick-update">
+  		   
+  		   
+  		   
+  		   
+  		   <div class="quick-update" ng-if="show_welcome_msg==false">
   		   			<textarea rows="1" class="form-control title" ng-if="post_category=='Issue'" placeholder="Write a topic..." ng-model="feed_title" ng-change="update_feed_title(feed_title)"></textarea>
 				<textarea rows="6" class="form-control desc" placeholder="Type Something..." ng-model="feed_desc" ng-change="update_feed_desc(feed_desc)"></textarea>
 				<div class="qu-buttons">
@@ -26,7 +40,7 @@
 				</div>
 			</div>
   		   
-  		   <div class="timeline" id="timelinePostId">
+  		   <div class="timeline" id="timelinePostId" ng-if="show_welcome_msg==false">
   		   		
   		   		<div ng-repeat="data in timeline_data track by $index">
   		   			<div class="tl-header" ng-if="get_time_header(data.time,data,$index)">{{data.time_heading}}</div>

@@ -172,6 +172,7 @@
     padding: 15px;
     margin: 0;
     border-color: #e2e2e2;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 10px rgba(0, 0, 0, 0.12);
 }
 .feedsViewCls .timeline .tl-entry .comment_input_section{
 	    margin-top: 11px;
@@ -181,4 +182,34 @@
     margin: 10px;
     background-color: #A560DC;
     border-color: #9D3AEC;
+}
+
+.feedsViewCls .timelinePanelCls .welcome_card_cls{
+	background: url('../images/welcome_image.jpg') no-repeat;
+    background-size: 100% 100%;
+    height: 300px;
+}
+.feedsViewCls .timelinePanelCls .welcome_card_cls .welcome_greet{
+	padding-top: 18%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 2em;	
+}
+.feedsViewCls .timelinePanelCls .welcome_card_cls .welcome_msg{
+    text-align: center;	
+}
+.feedsViewCls .timelinePanelCls .welcome_card_cls .welcome_msg .welcome_msg_1{
+	font-weight: 600;
+    font-size: 1.2em;	
+}
+.feedsViewCls .timelinePanelCls .welcome_card_cls .welcome_msg .welcome_msg_2{
+	    padding: 18px;
+}
+.feedsViewCls .timelinePanelCls .welcome_card_cls .welcome_msg button{
+	 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 10px rgba(0, 0, 0, 0.12);
+    margin: 10px;
+    background-color: #A560DC;
+    border-color: #9D3AEC;
+    color: white;
+    border-radius: 7px;
 }
