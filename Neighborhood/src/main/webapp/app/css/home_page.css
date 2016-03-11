@@ -845,4 +845,15 @@ body{
     border: 1px solid black;
     text-align: left;
 }	
+.mainViewCls .mainViewToolbarCls .mainViewToolbarTextCls.search .search_popup_overlay .search_result_div_cls{
+    border-bottom: 1px solid white;	
+}
+.mainViewCls .mainViewToolbarCls .mainViewToolbarTextCls.search .search_popup_overlay .search_result_div_cls .search_result_img_cls{
+       height: 50px;
+    width: 50px;
+}
+.mainViewCls .mainViewToolbarCls .mainViewToolbarTextCls.search .search_popup_overlay .search_result_div_cls .search_result_text_cls{
+    height: 50px;
+    margin-left: 2%;
+}
 /*search popup css end*/

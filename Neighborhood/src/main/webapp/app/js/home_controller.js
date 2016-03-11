@@ -1,12 +1,13 @@
 angular.module('neighborhood.home_app', [])
-.controller('home_controller', ['$scope','$state','$ionicSideMenuDelegate','$timeout','$http','$ionicPopup','$q','user_data_service',function($scope,
+.controller('home_controller', ['$scope','$state','$ionicSideMenuDelegate','$timeout','$http','$ionicPopup','$q','user_data_service','locality_info_service',function($scope,
 		$state,
 		$ionicSideMenuDelegate,
 		$timeout,
 		$http,
 		$ionicPopup,
 		$q,
-		user_data_service
+		user_data_service,
+		locality_info_service
 	){
 	
 	$scope.left_menu_items = [
@@ -147,6 +148,8 @@ angular.module('neighborhood.home_app', [])
 	
 	$scope.hide_search_bar = function(){
 		$scope.show_search_bar = false;
+		$scope.search_data = [];
+		$scope.search_string = '';
 	};
 	
 	$scope.toggle_notif_overlay = function(){
@@ -199,7 +202,10 @@ angular.module('neighborhood.home_app', [])
 	};
 	
 	$scope.canceller = '';
+	$scope.search_data = [];
+	$scope.search_string = '';
 	$scope.search_home = function(search_term){
+		$scope.search_string = 'Searching ....';
 		if($scope.canceller !=''){
 			$scope.canceller.resolve();
 			$scope.canceller = '';
@@ -220,8 +226,32 @@ angular.module('neighborhood.home_app', [])
 
 	    requestPromise.
 	        success(function(data, status, headers, config) {
+	        	$scope.search_data = [];
 	            // Everything fine and not cancelled
-	        	console.log(data);
+	        	if(typeof data == "string"){
+	        		$scope.search_string = data;
+	        		//no matching results
+	        	}else{
+	        		$scope.search_string = '';
+	        		for(var i=0;i<data.length;i++){
+	        			var json = {};
+	        			if(data[i].name){   //locality information
+	        				json.text = data[i].name;
+	        				json.type= "locality";
+	        			}else if(data[i].first_name){
+	        				json.text = data[i].first_name + " " + data[i].last_name;
+	        				json.type= "person";
+	        			}
+	        			
+	        			if(data[i].profile_pic){
+	        				json.pic = data[i].profile_pic;
+	        			}else if(data[i].profile_pic==''){
+	        				json.pic = "images/profile_pic.png";
+	        			}
+	        			json.info = data[i];
+	        			$scope.search_data.push(json);
+	        		}
+	        	}
 	        }).
 	        error(function(data, status, headers, config) {
 	        	console.log(data);
@@ -236,5 +266,13 @@ angular.module('neighborhood.home_app', [])
 
 		
 	};
+	
+	$scope.search_result_click = function(search_data){
+		if(search_data.type == "locality"){
+			locality_info_service.set_locality_data(search_data.info);
+			$scope.hide_search_bar();
+			$scope.go_to_app("My Neighborhood");
+		}
+	}
 	
 }]);

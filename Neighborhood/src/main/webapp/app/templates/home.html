@@ -13,7 +13,10 @@
                <i class="top-search-close" ng-click="hide_search_bar()">x</i>
                
                <div class="search_popup_overlay">
-               		<div>Searching .... </div>
+               		<div ng-if="search_data.length==0 && search_string!=''">{{search_string}}</div>
+               		<div ng-if="search_data.length>0" ng-repeat="data in search_data" class="search_result_div_cls" ng-click="search_result_click(data)">
+               			<img class="search_result_img_cls" ng-src={{data.pic}}></img><span class="search_result_text_cls">{{data.text}}</span>
+               		</div>
                </div>
    		   </span>
  		   <span class="top-menu">
