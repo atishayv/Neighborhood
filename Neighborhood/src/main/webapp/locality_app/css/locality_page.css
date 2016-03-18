@@ -57,8 +57,8 @@
 }
 
 .neighborhood_view_cls .neighborhood_view_panel_cls .card .card-header{
-    padding: 23px 25px;
-    position: relative;	
+    position: relative;
+    margin-top: 4%;
 }
 
 .neighborhood_view_cls .neighborhood_view_panel_cls .card .card_button{

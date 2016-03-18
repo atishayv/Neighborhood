@@ -160,7 +160,7 @@ public class RequestServlet extends HttpServlet{
 						sendResponse(resp,responseArr.toString().getBytes("UTF-8"));
 				    	
 				    }
-				}else if(requestObject.getString("action").equalsIgnoreCase("updateUserData")){
+				}else if(requestObject.getString("action").equalsIgnoreCase("update_user_data")){
 					JSONObject data = new JSONObject(requestObject.getString("data"));
 					String updateString = "";
 					

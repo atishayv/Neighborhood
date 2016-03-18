@@ -31,9 +31,11 @@ angular.module('neighborhood.locality_app', [])
 	$scope.hospital_data = [];
 	$scope.ATM_data = [];
 	
-	$scope.show_join_neighborhood = true;
 	
+	$scope.show_join_neighborhood = true;
+	$scope.user_data_obj = {};
 	user_data_service.get_user_data_obj(function(result){
+		$scope.user_data_obj = result;
 		if(result.locality_id!='' || result.locality_id == 0)
 			$scope.show_join_neighborhood = true;
 		else
@@ -168,6 +170,37 @@ angular.module('neighborhood.locality_app', [])
 					$scope.$apply();
 		    }
 		  });
+	};
+	
+	$scope.join_locality = function(){
+		var req = {
+				 method: 'POST',
+				 url: deployment_location + '/Neighborhood/requestServlet',
+				 data: { 
+					 	action : 'update_user_data',
+					 	data: {
+					 		mail_id : $scope.user_data_obj.mail_id,
+					 		locality_id : $scope.locality_data.locality_id
+					 	}
+				 	   }
+				};
+		
+		
+		$http(req).then(function(result){
+			$ionicPopup.alert({
+                title:"<b>Error</b>",
+                template: "Welcome to " + $scope.locality_data.name + " society."
+	        });
+			user_data_service.set_user_data_obj(result.data[0]);
+			$state.go('home.feeds', {}, { reload: true });
+		
+		}, function(result){
+			console.log(result);
+			$ionicPopup.alert({
+                title:"<b>Error</b>",
+                template: "Something went wrong. Please try again."
+	        });
+		});
 	};
 	
 	$scope.get_nearby_places();

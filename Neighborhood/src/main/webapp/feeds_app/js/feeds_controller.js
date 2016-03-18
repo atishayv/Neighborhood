@@ -131,6 +131,8 @@ angular.module('neighborhood.feeds_app', [])
 				
 				if(!$scope.user_data_obj.locality_id){
 					$scope.show_welcome_msg = true;
+				}else{
+					//fetch feeds from server for that locality id and assign it to variable
 				}
 			}
 	},function(result){
