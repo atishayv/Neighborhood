@@ -12,8 +12,10 @@
                               {{locality_data.name}}
                           </div>
                       </div>
-                      
+                      	
                       <div class="card">
+                      		<button class="card_button" ng-if="show_join_neighborhood==true" ng-click="">Join Neighborhood</button>
+                      
                           <div class="card-header">
                               <h2>About {{locality_data.name}}</h2>
                           </div>
@@ -57,38 +59,18 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">School</a>
+								<span>School</span>
 							</h4>
 						</div>
 						<div id="collapseOne" class="panel-collapse collapse in">
-							<div class="panel-body">
+							<div class="panel-body" ng-repeat="data in school_data">
 								<div class="text-content">
-									<div>St. Pauls English School</div>
-									<span class="stars">4</span> ICSE<br>
-									3rd A Cross, Near-Woodies Hotel, J P Nagar 2nd Phase, KSRTC Layout, 3rd Phase, J P Nagar, Bengaluru, Karnataka 560078
+									<div>{{data.name}}</div>
+									<span class="stars">{{data.rating}}</span> {{data.website}}<br>
+									{{data.formatted_address.icon}}
 								</div>
 								<div class="image-content">
-									<img src="../locality_app/images/no_school.png">
-								</div>
-							</div>
-							<div class="panel-body">
-								<div class="text-content">
-									<div>St. Pauls English School</div>
-									<span class="stars">4</span> ICSE<br>
-									3rd A Cross, Near-Woodies Hotel, J P Nagar 2nd Phase, KSRTC Layout, 3rd Phase, J P Nagar, Bengaluru, Karnataka 560078
-								</div>
-								<div class="image-content">
-									<img src="../locality_app/images/no_school.png">
-								</div>
-							</div>
-							<div class="panel-body">
-								<div class="text-content">
-									<div>St. Pauls English School</div>
-									<span class="stars">4</span> ICSE<br>
-									3rd A Cross, Near-Woodies Hotel, J P Nagar 2nd Phase, KSRTC Layout, 3rd Phase, J P Nagar, Bengaluru, Karnataka 560078
-								</div>
-								<div class="image-content">
-									<img src="../locality_app/images/no_school.png">
+									<img ng-src="{{data.icon}}">
 								</div>
 							</div>
 						</div>
@@ -96,18 +78,18 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Hospital</a>
+								<span>Hospital</span>
 							</h4>
 						</div>
-						<div id="collapseTwo" class="panel-collapse collapse">
-							<div class="panel-body">
+						<div id="collapseTwo" class="panel-collapse collapse in">
+							<div class="panel-body" ng-repeat="data in hospital_data">
 								<div class="text-content">
-									<div>Apollo Cradle</div>
-									<span class="stars">4</span> ICSE<br>
-									3rd A Cross, Near-Woodies Hotel, J P Nagar 2nd Phase, KSRTC Layout, 3rd Phase, J P Nagar, Bengaluru, Karnataka 560078
+									<div>{{data.name}}</div>
+									<span class="stars">{{data.rating}}</span> {{data.website}}<br>
+									{{data.formatted_address.icon}}
 								</div>
 								<div class="image-content">
-									<img src="../locality_app/images/no_school.png">
+									<img ng-src="{{data.icon}}">
 								</div>
 							</div>
 						</div>
@@ -115,20 +97,20 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">ATM</a>
+								<span>ATM</span>
 							</h4>
 						</div>
-						<div id="collapseThree" class="panel-collapse collapse">
-							<div class="panel-body">
+						<div id="collapseThree" class="panel-collapse collapse in">
+							<div class="panel-body" ng-repeat="data in ATM_data">
 								<div class="text-content">
-									<div>State Bank ATM</div>
-									<span class="stars">4</span> ICSE<br>
-									3rd A Cross, Near-Woodies Hotel, J P Nagar 2nd Phase, KSRTC Layout, 3rd Phase, J P Nagar, Bengaluru, Karnataka 560078
+									<div>{{data.name}}</div>
+									<span class="stars">{{data.rating}}</span> {{data.website}}<br>
+									{{data.formatted_address.icon}}
 								</div>
 								<div class="image-content">
-									<img src="../locality_app/images/no_school.png">
+									<img ng-src="{{data.icon}}">
 								</div>
-								</div>
+							</div>
 						</div>
 					</div>
 				</div>

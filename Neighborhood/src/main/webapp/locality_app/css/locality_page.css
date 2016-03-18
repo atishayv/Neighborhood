@@ -61,6 +61,11 @@
     position: relative;	
 }
 
+.neighborhood_view_cls .neighborhood_view_panel_cls .card .card_button{
+    float: right;
+    margin-right: 20px;	
+}
+
 .neighborhood_view_cls .neighborhood_view_panel_cls .card .card-header h2{
     margin: 0;
     line-height: 100%;
