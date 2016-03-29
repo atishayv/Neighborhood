@@ -166,5 +166,130 @@ angular.module('neighborhood.login_app', [])
     	}
 	};
 	
+	$scope.do_FB_login = function(){
+		
+		FB.getLoginStatus(function(response) {
+  		  if (response.status === 'connected') {
+  		    console.log('Logged in.');
+  		    FB.api(
+  		    	    "/me?fields=id,name,picture,about,bio,birthday,education,email,gender,first_name,last_name,relationship_status,work",
+  		    	    function (response) {
+  		    	      if (response && !response.error) {
+  		    	    	  console.log(response);
+  		    	    	  //newUserRegister will either insert new user into DB if not exist or it will return User already exist
+  		    	    	  var req = {
+  		     				 method: 'POST',
+  		     				 url: deployment_location + '/Neighborhood/requestServlet',
+  		     				 data: { 
+  		     					 	action : 'new_user_register',
+  		     					 	first_name: response.first_name,
+  		     					 	last_name : response.last_name,
+  		     					 	email_id : response.email
+  		     				 	   }
+  		     				};
+  		     		
+	  		     		$http(req).then(function(result){
+	  		     			$scope.on_FB_login_success(response); 	////response is USer data coming from facebook
+	  		     		}, function(result){
+	  		     			console.log(result);
+	  		     		});
+  		     		
+  		    	      }
+  		    	    }
+  		    	);
+  		  }
+  		  else {
+  		    FB.login(function(response) {
+  		    	   // handle the response
+  		    	console.log(response);
+  		    	FB.api(
+	    		    	    "/me?fields=id,name,about,bio,birthday,education,email,gender,picture,first_name,last_name,relationship_status,work",
+	    		    	    function (response) {
+	    		    	      if (response && !response.error) {
+	    		    	    	  console.log(response);
+	    		    	    	  //newUserRegister will either insert new user into DB if not exist or it will return User already exist
+	      		    	    	  var req = {
+	      	  		     				 method: 'POST',
+	      	  		     				 url: deployment_location + '/Neighborhood/requestServlet',
+	      	  		     				 data: { 
+	      	  		     					 	action : 'new_user_register',
+	      	  		     					 	first_name: response.first_name,
+	      	  		     					 	last_name : response.last_name,
+	      	  		     					 	email_id : response.email
+	      	  		     				 	   }
+	      	  		     				};
+	      	  		     		
+	      		  		     		$http(req).then(function(result){
+	      		  		     			$scope.on_FB_login_success(response); 	////response is USer data coming from facebook
+	      		  		     		}, function(result){
+	      		  		     			console.log(result);
+	      		  		     		});
+	    		    	      }
+	    		    	    }
+	    		    	);
+  		    }, {scope: 'email,user_birthday,user_about_me,user_education_history,user_relationships,user_work_history'});
+  		  }
+  		});
+	};
 	
+	$scope.on_FB_login_success = function(response){
+		//response is User data coming from facebook
+		
+		//extracting user details
+		var schoolName = "";
+		var collegeName = "";
+		if(response && response.education){
+			for(var i=0;i<response.education.length;i++){
+				if(response.education[i].type=="Graduate School")
+					collegeName = response.education[i].school.name;
+				else if(response.education[i].type.indexOf('School')!=-1)
+					schoolName = response.education[i].school.name;
+			}
+		}
+		
+		var json = {
+				DOB : response.birthday ? response.birthday : '',
+				mail_id : response.email ? response.email : '',
+				gender : response.gender ? response.gender : '',
+				first_name : response.first_name ? response.first_name : '',
+				last_name : response.last_name ? response.last_name : '',
+				name : response.name ? response.name : '',
+				relationship_status : response.relationship_status ? response.relationship_status : '',
+				college : collegeName,
+				school : schoolName,
+				workplace :(response.work && response.work[0] && response.work[0]) ? response.work[0].employer.name : '',
+				profile_pic : response.id ? 'http://graph.facebook.com/'+response.id+'/picture?type=large' : ''
+			}
+		
+		//first update the user information coming from facebook to DB and then select all data from User_profile table and add it store
+		var req = {
+				 method: 'POST',
+				 url: deployment_location + '/Neighborhood/requestServlet',
+				 data: { 
+					 	action : 'update_user_data',
+					 	data: json
+				 	   }
+				};
+		
+		
+		$http(req).then(function(result){
+			var response  = result.data[0];
+			
+			user_data_service.set_user_data_obj(response);
+			
+			localStorage.setItem('user_id',response.user_id);
+			
+			$state.transitionTo('home.feeds');
+			
+		}, function(result){
+			console.log(result);
+			$ionicPopup.alert({
+               title:"<b>Error</b>",
+               template: "Something went wrong. Please try again."
+	        });
+		});
+		
+		
+		
+	};
 }]);

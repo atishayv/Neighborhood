@@ -115,34 +115,7 @@ angular.module('neighborhood.feeds_app', [])
 		    	            ];
 		
 		
-	
-	//get user details
 	$scope.user_data_obj = '';
-	user_data_service.get_user_data_obj(function(result){
-		if(result=="Inavlid User Id"){
-				$ionicPopup.alert({
-	                title:"<b>Error</b>",
-	                template: "Please login again to continue"
-		        });
-				$state.transitionTo("login");
-			}else{
-				//adding the user deatils into store
-				$scope.user_data_obj = result;
-				
-				if(!$scope.user_data_obj.locality_id){
-					$scope.show_welcome_msg = true;
-				}else{
-					//fetch feeds from server for that locality id and assign it to variable
-				}
-			}
-	},function(result){
-		console.log(result);
-			$ionicPopup.alert({
-                title:"<b>Error</b>",
-                template: "Please login again to continue"
-	        });
-	    $state.transitionTo("login");
-	});
 	
 	
 	$scope.show_welcome_msg = false;
@@ -165,6 +138,25 @@ angular.module('neighborhood.feeds_app', [])
 	$scope.change_post_feed_box_format = function(category){
 		$scope.post_category = category;
 	};	
+	
+	
+	$scope.get_feed_data = function(){
+		var req = {
+				 method: 'POST',
+				 url: deployment_location + '/Neighborhood/requestServlet',
+				 data: { 
+					 	action : 'get_feed_data',
+					 	locality_id : $scope.user_data_obj.locality_id,
+					 	timestamp : '',   //specify after which time feed is required
+				 	   }
+				};
+		
+		$http(req).then(function(result){
+			console.log(result);
+		}, function(result){
+			console.log(result);
+		});
+	};
 	
 	$scope.get_time_header = function(feed_time,feed_obj,index){
 		var time = new Date().getTime();
@@ -221,5 +213,33 @@ angular.module('neighborhood.feeds_app', [])
 		angular.element(document.getElementById('main_view_id')).scope().display_search_bar();
 	};
 	
-		
+	
+	//get user details
+	user_data_service.get_user_data_obj(function(result){
+		if(result=="Inavlid User Id"){
+				$ionicPopup.alert({
+	                title:"<b>Error</b>",
+	                template: "Please login again to continue"
+		        });
+				$state.transitionTo("login");
+			}else{
+				//adding the user deatils into store
+				$scope.user_data_obj = result;
+				
+				if(!$scope.user_data_obj.locality_id){
+					$scope.show_welcome_msg = true;
+				}else{
+					//fetch feeds from server for that locality id and assign it to variable
+					$scope.get_feed_data();
+				}
+			}
+	},function(result){
+		console.log(result);
+			$ionicPopup.alert({
+                title:"<b>Error</b>",
+                template: "Please login again to continue"
+	        });
+	    $state.transitionTo("login");
+	});
+	
 }]);

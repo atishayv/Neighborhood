@@ -101,7 +101,9 @@ public class RequestServlet extends HttpServlet{
 				if(requestObject.getString("action").equalsIgnoreCase("new_user_register")){
 					String first_name = requestObject.getString("first_name");
 					String last_name = requestObject.getString("last_name");
-					String password = requestObject.getString("password");
+					String password = "";
+					if(requestObject.has("password"))
+						password = requestObject.getString("password");
 					String email = requestObject.getString("email_id");
 					
 					
@@ -353,6 +355,37 @@ public class RequestServlet extends HttpServlet{
 				    }
 				    
 				    
+				}else if(requestObject.getString("action").equalsIgnoreCase("get_feed_data")){
+					String locality_id = requestObject.getString("locality_id");
+					String timestamp = requestObject.getString("timestamp");
+					String sql;
+					if(timestamp.equalsIgnoreCase(""))
+						sql = "SELECT * FROM FEEDS_DATA,USER_DATA WHERE FEEDS_DATA.locality_id='"+locality_id+"' AND FEEDS_DATA.user_id = USER_DATA.user_id ORDER BY post_time DESC LIMIT 15";
+					else
+						sql = "SELECT * FROM FEEDS_DATA,USER_DATA WHERE FEEDS_DATA.locality_id='"+locality_id+"' AND FEEDS_DATA.user_id = USER_DATA.user_id AND post_time<='"+timestamp+"' ORDER BY post_time DESC";
+					
+					JSONArray feedsArr = new JSONArray();
+					JSONArray responseArr = new JSONArray();
+					
+				    stmt = connection.prepareStatement(sql);
+				    rs = stmt.executeQuery();
+				    feedsArr = convertToArray(rs);
+				    for(int i=0;i<feedsArr.length();i++){
+				    	JSONObject feed_data = (JSONObject)feedsArr.get(i);
+				    	sql = "SELECT * FROM COMMENTS_DATA WHERE feed_id='" + feed_data.get("feed_id") + "'";
+				    	stmt = connection.prepareStatement(sql);
+					    rs = stmt.executeQuery();
+					    JSONArray commentsArr = new JSONArray();
+					    commentsArr = convertToArray(rs);
+					    feed_data.put("comments", commentsArr);
+					    responseArr.put(feed_data);
+					    
+				    }
+				    
+				    
+			    	resp.setHeader("Cache-Control", "no-cache");
+					sendResponse(resp,responseArr.toString().getBytes("UTF-8"));
+				    	
 				}
 				
 	      

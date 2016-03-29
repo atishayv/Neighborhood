@@ -20,7 +20,7 @@
 			
 			<button ng-click="create_account()" class="loginBtnCls" ng-if="currentView=='Register'">Create Account</button>
 			<button class="loginBtnCls" ng-if="currentView=='Login'" ng-click="sign_in()">Sign In</button>
-			<button class="facebookBtnCls" ng-if="currentView=='Login'">Connect with Facebook</button>
+			<button class="facebookBtnCls" ng-if="currentView=='Login'" ng-click="do_FB_login()">Connect with Facebook</button>
 			
 			<div class="registerComponentCls" ng-if="currentView=='Login'">
 				<p class="register-account"> 
