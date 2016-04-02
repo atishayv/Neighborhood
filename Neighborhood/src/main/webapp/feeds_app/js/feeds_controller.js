@@ -23,7 +23,7 @@ angular.module('neighborhood.feeds_app', [])
 		user_data_service
 	){
 		
-		$scope.timeline_data = [
+		/*$scope.timeline_data = [
 		       	            { userName : '' ,
 		    	            	userPic : '../feeds_app/images/timeline/signin-bg-5.jpg',
 		    	            	title : 'Lorem ipsum dolor sit amet',
@@ -112,7 +112,7 @@ angular.module('neighborhood.feeds_app', [])
 		    	            	commentsArr : []
 		    	            }
 		    	            
-		    	            ];
+		    	            ];*/
 		
 		
 	$scope.user_data_obj = '';
@@ -121,7 +121,7 @@ angular.module('neighborhood.feeds_app', [])
 	$scope.show_welcome_msg = false;
 	
 		
-	$scope.post_category = 'Feeds';
+	$scope.post_category = 'general_feed';
 	$scope.time_header_label=[];
 	$scope.time_header_index=[];
 	
@@ -134,11 +134,27 @@ angular.module('neighborhood.feeds_app', [])
 		$scope.feed_desc = feed_desc;
 	};
 	
+	$scope.comment_text = "";
+	$scope.update_comment_text = function(comment_text){
+		$scope.comment_text = comment_text;
+	};
 		
 	$scope.change_post_feed_box_format = function(category){
 		$scope.post_category = category;
 	};	
 	
+	$scope.process_feed_response_data = function(data){
+		var cur_time = new Date().getTime();
+		for(var i=0;i<data.length;i++){
+			var diff_time_in_hr = (cur_time - data[i].post_time)/(1000*60*60);
+			if(diff_time_in_hr<=12)
+				data[i].time_label = diff_time_in_hr+"h ago";
+			else
+				data[i].time_label = new Date(parseInt(data[i].post_time)).toDateString();
+		}
+		
+		$scope.timeline_data = data;
+	};
 	
 	$scope.get_feed_data = function(){
 		var req = {
@@ -153,6 +169,7 @@ angular.module('neighborhood.feeds_app', [])
 		
 		$http(req).then(function(result){
 			console.log(result);
+			$scope.process_feed_response_data(result.data);
 		}, function(result){
 			console.log(result);
 		});
@@ -195,18 +212,63 @@ angular.module('neighborhood.feeds_app', [])
 	};
 	
 	$scope.submit_feed = function(){
-		alert($scope.feed_desc);
-		alert($scope.feed_title);
-		var feed_obj = { user_id : '' ,
-            	feed_title : 'Lorem ipsum dolor sit amet',
-            	feed_desc  : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+		var feed_obj = {
+            	feed_title : $scope.feed_title,
+            	feed_desc  : $scope.feed_desc,
             	feed_image : '',
-            	time_label : '20 min ago',
-            	post_time : new Date('03/07/2016 14:00').getTime(),
+            	post_time : new Date().getTime(),
             	likes : 0,
-            	category : '',
-            	locality_id : ''
+            	category : $scope.post_category,
+            	locality_id : $scope.user_data_obj.locality_id,
+            	user_id : $scope.user_data_obj.user_id
             }
+		
+		var req = {
+				 method: 'POST',
+				 url: deployment_location + '/Neighborhood/requestServlet',
+				 data: { 
+					 	action : 'post_feed',
+					 	data : feed_obj
+				 	   }
+				};
+		
+		$http(req).then(function(result){
+			console.log(result);
+			$scope.feed_title = "";
+			$scope.feed_desc = "";
+		}, function(result){
+			console.log(result);
+			$scope.feed_title = "";
+			$scope.feed_desc = "";
+		});
+		
+	};
+	
+	$scope.post_comment = function(feed_data){
+		var comment_obj = { 
+            	feed_id : $scope.feed_title,
+            	user_id : $scope.user_data_obj.user_id,
+            	post_time : new Date().getTime(),
+            	likes : 0,
+            	comment_text : $scope.comment_text
+            	
+            }
+		
+		var req = {
+				 method: 'POST',
+				 url: deployment_location + '/Neighborhood/requestServlet',
+				 data: { 
+					 	action : 'post_comment',
+					 	data : comment_obj
+				 	   }
+				};
+		
+		$http(req).then(function(result){
+			console.log(result);
+			$scope.comment_text = "";
+		}, function(result){
+			console.log(result);
+		});
 	};
 	
 	$scope.show_search_panel = function(){

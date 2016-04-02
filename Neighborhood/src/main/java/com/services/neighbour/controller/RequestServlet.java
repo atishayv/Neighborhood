@@ -287,28 +287,55 @@ public class RequestServlet extends HttpServlet{
 					sendResponse(resp,"Successfully updated profile pic".getBytes("UTF-8"));
 				}else if(requestObject.getString("action").equalsIgnoreCase("post_feed")){
 					
-					String feed_title = requestObject.getString("feed_title");
-					String feed_desc = requestObject.getString("feed_desc");
-					String user_id = requestObject.getString("user_id");
-					String feed_image = requestObject.getString("feed_image");
-					String post_time = requestObject.getString("post_time");
-					String likes = requestObject.getString("likes");
-					String category = requestObject.getString("category");
-					String locality_id = requestObject.getString("locality_id");
+					JSONObject data = new JSONObject(requestObject.getString("data"));
+					
+					String user_id = data.getString("user_id");
+					String feed_title = data.getString("feed_title");
+					String feed_desc = data.getString("feed_desc");
+					String post_time = data.getString("post_time");
+					String feed_image = data.getString("feed_image");
+					String likes = data.getString("likes");
+					String category = data.getString("category");
+					String locality_id = data.getString("locality_id");
 					
 					
 				    String sql;
-				    sql = "SELECT * FROM USER_DATA WHERE user_id=''";
+				    sql = "INSERT INTO FEEDS_DATA (user_id,feed_title,feed_desc,post_time,feed_image,likes,category,locality_id) VALUES ("+user_id+","+feed_title+","+feed_desc+","+post_time+","+feed_image+","+likes+","+category+","+locality_id+")";
 				    stmt = connection.prepareStatement(sql);
 				    rs = stmt.executeQuery();
 				    if (!rs.isBeforeFirst() ) {
-				    	String responseStr = "Inavlid User Id";
+				    	String responseStr = "Something went wrong";
 			    		resp.setHeader("Cache-Control", "no-cache");
 						sendResponse(resp,responseStr.getBytes("UTF-8")); 
 				    }else{
-				    	JSONArray responseArr = convertToArray(rs);
+				    	String responseStr = "Successfully inserted data";
 				    	resp.setHeader("Cache-Control", "no-cache");
-						sendResponse(resp,responseArr.toString().getBytes("UTF-8"));
+						sendResponse(resp,responseStr.getBytes("UTF-8"));
+				    	
+				    }
+				}else if(requestObject.getString("action").equalsIgnoreCase("post_comment")){
+					
+					JSONObject data = new JSONObject(requestObject.getString("data"));
+					
+					String user_id = data.getString("user_id");
+					String feed_id = data.getString("feed_id");
+					String comment_text = data.getString("comment_text");
+					String post_time = data.getString("post_time");
+					String likes = data.getString("likes");
+					
+					
+				    String sql;
+				    sql = "INSERT INTO COMMENTS_DATA (user_id,feed_id,comment_text,post_time,likes) VALUES ("+user_id+","+feed_id+","+comment_text+","+post_time+","+likes+")";
+				    stmt = connection.prepareStatement(sql);
+				    rs = stmt.executeQuery();
+				    if (!rs.isBeforeFirst() ) {
+				    	String responseStr = "Something went wrong";
+			    		resp.setHeader("Cache-Control", "no-cache");
+						sendResponse(resp,responseStr.getBytes("UTF-8")); 
+				    }else{
+				    	String responseStr = "Successfully inserted data";
+				    	resp.setHeader("Cache-Control", "no-cache");
+						sendResponse(resp,responseStr.getBytes("UTF-8"));
 				    	
 				    }
 				}else if(requestObject.getString("action").equalsIgnoreCase("search_home")){
@@ -372,12 +399,12 @@ public class RequestServlet extends HttpServlet{
 				    feedsArr = convertToArray(rs);
 				    for(int i=0;i<feedsArr.length();i++){
 				    	JSONObject feed_data = (JSONObject)feedsArr.get(i);
-				    	sql = "SELECT * FROM COMMENTS_DATA WHERE feed_id='" + feed_data.get("feed_id") + "'";
+				    	sql = "SELECT * FROM COMMENTS_DATA,USER_DATA WHERE COMMENTS_DATA.feed_id='" + feed_data.get("feed_id") + "' AND COMMENTS_DATA.user_id = USER_DATA.user_id";
 				    	stmt = connection.prepareStatement(sql);
 					    rs = stmt.executeQuery();
 					    JSONArray commentsArr = new JSONArray();
 					    commentsArr = convertToArray(rs);
-					    feed_data.put("comments", commentsArr);
+					    feed_data.put("comments_arr", commentsArr);
 					    responseArr.put(feed_data);
 					    
 				    }
@@ -385,6 +412,20 @@ public class RequestServlet extends HttpServlet{
 				    
 			    	resp.setHeader("Cache-Control", "no-cache");
 					sendResponse(resp,responseArr.toString().getBytes("UTF-8"));
+				    	
+				}else if(requestObject.getString("action").equalsIgnoreCase("get_unread_messages")){
+					String user_id_to = requestObject.getString("user_id_to");
+					
+					String sql = "SELECT * FROM CHAT_DATA,USER_DATA WHERE CHAT_DATA.user_id_to='"+user_id_to+"' AND CHAT_DATA.chat_status = 'unread' WHERE CHAT_DATA.user_id_from = USER_DATA.user_id GROUP BY CHAT_DATA.user_id_from";
+					
+				    stmt = connection.prepareStatement(sql);
+				    rs = stmt.executeQuery();
+				    JSONArray dataArr = convertToArray(rs);
+				    
+				    
+				    
+			    	resp.setHeader("Cache-Control", "no-cache");
+					sendResponse(resp,dataArr.toString().getBytes("UTF-8"));
 				    	
 				}
 				

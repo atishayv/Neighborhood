@@ -14,10 +14,10 @@
 	   </div>
   		   
 		<ul class="tab-nav tn-justified" tabindex="1"  ng-if="show_welcome_msg==false">
-   		   <li ng-click="change_post_feed_box_format('Feeds')" ng-class="post_category=='Feeds' ? 'active waves-effect' : 'waves-effect'"><span>Post feed</span></li> 
-   		   <li ng-click="change_post_feed_box_format('Issue')" ng-class="post_category=='Issue' ? 'active waves-effect' : 'waves-effect'"><span>Raise society issue</span></li> 
-   		   <li ng-click="change_post_feed_box_format('Question')" ng-class="post_category=='Question' ? 'active waves-effect' : 'waves-effect'"><span>Ask a question</span></li> 
-   		   <li ng-click="change_post_feed_box_format('Info')" ng-class="post_category=='Info' ? 'active waves-effect' : 'waves-effect'"><span>Provide information</span></li>
+   		   <li ng-click="change_post_feed_box_format('general_feed')" ng-class="post_category=='general_feed' ? 'active waves-effect' : 'waves-effect'"><span>Post feed</span></li> 
+   		   <li ng-click="change_post_feed_box_format('society_issue')" ng-class="post_category=='society_issue' ? 'active waves-effect' : 'waves-effect'"><span>Raise society issue</span></li> 
+   		   <li ng-click="change_post_feed_box_format('question')" ng-class="post_category=='question' ? 'active waves-effect' : 'waves-effect'"><span>Ask a question</span></li> 
+   		   <li ng-click="change_post_feed_box_format('info')" ng-class="post_category=='info' ? 'active waves-effect' : 'waves-effect'"><span>Provide information</span></li>
    		   </ul>
   		   
   		   
@@ -50,31 +50,31 @@
   		   			<div class="tl-entry">
 						<div class="tl-time">{{data.time_label}}</div>	<!-- post time -->
 						<div class="tl-icon bg-success">
-							<img ng-src="{{data.userPic}}" alt="">		<!-- post user pic -->
+							<img ng-src="{{data.profile_pic}}" alt="">		<!-- post user pic -->
 						</div>
 						<div class="panel tl-body">
-							<h4 class="text-warning" ng-if="data.title!=''">{{data.title}}</h4>	<!-- post title -->
-							{{data.description}}
+							<h4 class="text-warning" ng-if="data.title!=''">{{data.feed_title}}</h4>	<!-- post title -->
+							{{data.feed_desc}}
 							
 							<div class="tl-wide text-center" ng-if="data.imageUrl!=''" style="padding: 10px;margin-top:15px;margin-bottom: 15px;background: #f1f1f1;">	 <!-- post image -->
-								<img ng-src="{{data.imageUrl}}" alt="" style="max-height: 150px;max-width: 100%;">
+								<img ng-src="{{data.feed_image}}" alt="" style="max-height: 150px;max-width: 100%;">
 							</div>
 							
-							<i class="text-muted text-sm" ng-if="data.imageComment!=''">{{data.imageComment}}</i>	 	<!-- post image comments -->
+							<i class="text-muted text-sm" ng-if="data.imageComment!=''">{{data.feed_image_comment}}</i>	 	<!-- post image comments -->
 							
 							<!-- comments section -->
-							<div ng-if="data.commentsArr && data.commentsArr.length>0" style="margin-top: 10px;" class="text-sm">
-								<img ng-src="{{data.commentsArr[0].user_pic}}" alt="" class="rounded" style=" width: 20px;height: 20px;margin-top: -2px;">&nbsp;&nbsp;  	<!-- commented user pic -->
-								<a>{{data.commentsArr[0].user_name}}</a> commented {{data.commentsArr[0].time}}			<!-- commented user time and name -->
-								<div class="well well-sm" style="margin: 6px 0 0 0;">{{data.commentsArr[0].commentText}}  <!-- actual comment -->
+							<div ng-if="data.comments_arr && data.comments_arr.length>0" style="margin-top: 10px;" class="text-sm">
+								<img ng-src="{{data.comments_arr[0].profile_pic}}" alt="" class="rounded" style=" width: 20px;height: 20px;margin-top: -2px;">&nbsp;&nbsp;  	<!-- commented user pic -->
+								<a>{{data.comments_arr[0].first_name}}</a> commented {{data.comments_arr[0].post_time}}			<!-- commented user time and name -->
+								<div class="well well-sm" style="margin: 6px 0 0 0;">{{data.comments_arr[0].comment_text}}  <!-- actual comment -->
 								</div>
 							</div>
 							
 							
 							<!-- comment input box -->
 							<div class="comment_input_section">
-								<textarea class="form-control auto-size" placeholder="Write a comment..."></textarea>
-								<button class="m-t-15 btn btn-primary btn-sm waves-effect">Post</button>
+								<textarea class="form-control auto-size" placeholder="Write a comment..." ng-model="comment_text" ng-change="update_comment_text(comment_text)"></textarea>
+								<button class="m-t-15 btn btn-primary btn-sm waves-effect" ng-click="post_comment(data)">Post</button>
 							</div>
 							
 						</div>
