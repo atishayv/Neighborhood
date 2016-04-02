@@ -66,6 +66,16 @@ FOREIGN KEY (user_id) REFERENCES USER_DATA(user_id),
 FOREIGN KEY (feed_id) REFERENCES FEEDS_DATA(feed_id)
 );
 
+CREATE TABLE CHAT_DATA(
+chat_id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+chat_text varchar(500),
+chat_time varchar(255),
+chat_status varchar(255),
+user_id_to int,
+user_id_from int,
+FOREIGN KEY (user_id_to) REFERENCES USER_DATA(user_id)
+FOREIGN KEY (user_id_from) REFERENCES USER_DATA(user_id)
+);
  
 DROP TABLE USER_DATA;
  INSERT INTO FEEDS_DATA (user_id,feed_title,feed_desc,post_time,locality_id) VALUES (1,'Lorem ipsum dolor sit amet','Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.','1h ago',1)
