@@ -73,7 +73,7 @@ chat_time varchar(255),
 chat_status varchar(255),
 user_id_to int,
 user_id_from int,
-FOREIGN KEY (user_id_to) REFERENCES USER_DATA(user_id)
+FOREIGN KEY (user_id_to) REFERENCES USER_DATA(user_id),
 FOREIGN KEY (user_id_from) REFERENCES USER_DATA(user_id)
 );
  

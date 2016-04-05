@@ -16,6 +16,8 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.sql.*;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,6 +30,11 @@ import org.json.JSONObject;
 
 
 
+
+
+
+
+import MessengerServer.MessengerSocket;
 
 //import com.google.gson.JsonObject;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
@@ -427,6 +434,25 @@ public class RequestServlet extends HttpServlet{
 			    	resp.setHeader("Cache-Control", "no-cache");
 					sendResponse(resp,dataArr.toString().getBytes("UTF-8"));
 				    	
+				}else if(requestObject.getString("action").equalsIgnoreCase("get_active_users")){
+					MessengerSocket socket_instance = MessengerSocket.getInstance();
+					Iterator it = socket_instance.active_clients.entrySet().iterator();
+					JSONArray active_users = new JSONArray();
+				    while (it.hasNext()) {
+				        Map.Entry pair = (Map.Entry)it.next();
+				        String key = (String) pair.getKey();
+				        JSONObject active_user_data = new JSONObject();
+				        String sql;
+					    sql = "SELECT * FROM USER_DATA WHERE user_id='"+key+"'";
+					    stmt = connection.prepareStatement(sql);
+					    rs = stmt.executeQuery();
+					    JSONArray data_arr = convertToArray(rs);
+					    active_user_data.put(key, data_arr);
+				        
+				        active_users.put(active_user_data);
+				    }
+				    resp.setHeader("Cache-Control", "no-cache");
+					sendResponse(resp,active_users.toString().getBytes("UTF-8"));
 				}
 				
 	      

@@ -1,4 +1,4 @@
-package com.services.neighbour.controller;
+package MessengerServer;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,14 +13,14 @@ import javax.websocket.server.ServerEndpoint;
 @ServerEndpoint(value = "/messenger_socket/{user_id}")
 public class MessengerSocket {
 
-	private static HashMap<String,Session> active_clients = new HashMap<String, Session>();
-	private static MessengerSocket messenger_socket_instance;
+	public static HashMap<String,Session> active_clients = new HashMap<String, Session>();
+	static MessengerSocket messenger_socket_instance;
 	
-	public MessengerSocket getInstance(){
+	public static synchronized MessengerSocket getInstance(){
 		if(messenger_socket_instance==null){
-			this.messenger_socket_instance = new MessengerSocket();
+			messenger_socket_instance = new MessengerSocket();
 		}
-		return this.messenger_socket_instance;
+		return messenger_socket_instance;
 	}
 	
 	

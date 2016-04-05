@@ -36,7 +36,7 @@ angular.module('neighborhood.messenger_service', [])
 			},
 			
 			make_socket_connection : function(user_id){
-				this.websocket = new WebSocket('ws://localhost:8080/Neighborhood/messenger_socket/['+user_id+']');
+				this.websocket = new WebSocket('ws://localhost:8080/MessengerServer/messenger_socket/['+user_id+']');
 				
 			},
 	};

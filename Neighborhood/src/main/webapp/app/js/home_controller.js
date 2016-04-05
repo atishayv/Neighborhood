@@ -1,5 +1,5 @@
 angular.module('neighborhood.home_app', [])
-.controller('home_controller', ['$scope','$state','$ionicSideMenuDelegate','$timeout','$http','$ionicPopup','$q','user_data_service','locality_info_service',function($scope,
+.controller('home_controller', ['$scope','$state','$ionicSideMenuDelegate','$timeout','$http','$ionicPopup','$q','user_data_service','locality_info_service','messenger_chat_service',function($scope,
 		$state,
 		$ionicSideMenuDelegate,
 		$timeout,
@@ -7,7 +7,8 @@ angular.module('neighborhood.home_app', [])
 		$ionicPopup,
 		$q,
 		user_data_service,
-		locality_info_service
+		locality_info_service,
+		messenger_chat_service
 	){
 	
 	$scope.left_menu_items = [
@@ -103,6 +104,10 @@ angular.module('neighborhood.home_app', [])
    				
    				//by default go to feeds view
    				$state.transitionTo('home.feeds');
+   				
+   				//messenger related request
+   				messenger_chat_service.make_socket_connection($scope.user_data_obj.user_id);
+   				$scope.get_active_users();
    			}
 		},function(result){
 			console.log(result);
@@ -273,6 +278,28 @@ angular.module('neighborhood.home_app', [])
 			$scope.hide_search_bar();
 			$scope.go_to_app("My Neighborhood");
 		}
-	}
+	};
+	
+	
+	
+	
+	
+	//messenger related functions
+	$scope.get_active_users = function(){
+		var req = {
+				 method: 'POST',
+				 url: deployment_location + '/Neighborhood/requestServlet',
+				 data: { 
+					 	action : 'get_active_users',
+				 	   }
+				};
+		
+		$http(req).then(function(result){
+			console.log(result);
+		}, function(result){
+			console.log(result);
+		});
+	};
+	
 	
 }]);
