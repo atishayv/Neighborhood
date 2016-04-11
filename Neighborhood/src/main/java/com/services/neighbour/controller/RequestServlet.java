@@ -12,13 +12,15 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream; 
 import java.io.PrintWriter;
 import java.net.URL;
 import java.sql.*;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.glassfish.tyrus.server.Server;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,7 +36,8 @@ import org.json.JSONObject;
 
 
 
-import MessengerServer.MessengerSocket;
+
+import com.socket.MessengerSocket;
 
 //import com.google.gson.JsonObject;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
@@ -61,6 +64,8 @@ public class RequestServlet extends HttpServlet{
 			 datasource.setUrl(DB_URL);
 			 datasource.setUser("root");
 			 datasource.setPassword("root");
+			 
+			 startSocketServer();
 	    }
 	    catch (Exception e) {
 	      e.printStackTrace();
@@ -560,6 +565,20 @@ public class RequestServlet extends HttpServlet{
 				}
 			}
 		}
-
+	 
+	 private static void startSocketServer(){
+		 Server server = new Server("192.168.21.193", 8025, "/MessengerApp", MessengerSocket.class);
+		 
+	        try {
+	            server.start();
+	            //BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+	            System.out.print("Started socket server");
+	            //reader.readLine();
+	        } catch (Exception e) {
+	            throw new RuntimeException(e);
+	        } finally {
+	            //server.stop();
+	        }
+	 }
 
 }
