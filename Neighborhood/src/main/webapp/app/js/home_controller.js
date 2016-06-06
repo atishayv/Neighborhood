@@ -107,6 +107,9 @@ angular.module('neighborhood.home_app', [])
    				
    				//messenger related request
    				messenger_chat_service.make_socket_connection($scope.user_data_obj.user_id);
+   				messenger_chat_service.get_unread_messages($scope.user_data_obj.user_id,$scope.get_unread_messages_success,function(result){
+   					console.log(result);
+   				});
    				$scope.get_active_users();
    			}
 		},function(result){
@@ -285,6 +288,7 @@ angular.module('neighborhood.home_app', [])
 	
 	
 	//messenger related functions
+	$scope.active_users = [];
 	$scope.get_active_users = function(){
 		var req = {
 				 method: 'POST',
@@ -295,11 +299,53 @@ angular.module('neighborhood.home_app', [])
 				};
 		
 		$http(req).then(function(result){
+			$scope.active_users = [];
+			var active_users_arr = result.data;
+			for(var i=0;i<active_users_arr.length;i++){
+				if(active_users_arr[i][0].user_id != $scope.user_data_obj.user_id){
+					$scope.active_users.push(active_users_arr[i][0]);
+				}
+			}
+		}, function(result){
+			console.log(result);
+		});
+	};
+	
+	$scope.unread_messages_arr = [];
+	$scope.get_unread_messages_success = function(result){
+		$scope.unread_messages_arr = [];
+		for(var i=0;i<result.data.length;i++){
+			$scope.unread_messages_arr.push(result.data[i]);
+		}
+	};
+	
+	$scope.user_in_conversation_with = "";
+	$scope.open_chat_panel = function(user_id){
+		$scope.toggle_chat_panel();
+		$scope.user_in_conversation_with = user_id;
+		var req = {
+				 method: 'POST',
+				 url: deployment_location + '/Neighborhood/requestServlet',
+				 data: { 
+					 	action : 'get_conversation_between_users',
+					 	user_id_to : $scope.user_data_obj.user_id,
+					 	user_id_from : user_id
+				 	   }
+				};
+		
+		$http(req).then(function(result){
 			console.log(result);
 		}, function(result){
 			console.log(result);
 		});
 	};
 	
+	$scope.chat_text = "";
+	$scope.chat_text_change = function(chat_text){
+		$scope.chat_text = chat_text;
+	};
+	$scope.send_message = function(){
+		messenger_chat_service.send_message($scope.chat_text,$scope.user_in_conversation_with,$scope.user_data_obj.user_id);
+	}
 	
 }]);

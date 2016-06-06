@@ -103,14 +103,15 @@
                         
 	                    <div role="tabpanel" class="tab-pane fade active in enableTouchScroll" id="friends">
 	                        <div class="listview">
-	                            <a class="lv-item" href="">
+	                        	<div ng-if="active_users.length==0">No online users</div>
+	                            <a class="lv-item" href="" ng-repeat="user in active_users">
 	                                <div class="media">
 	                                    <div class="pull-left p-relative">
-	                                        <img class="lv-img-sm" src="images/chat/a1.jpg" alt="">
+	                                        <img class="lv-img-sm" ng-src="{{user.profile_pic}}" alt="">
 	                                        <i class="chat-status-busy"></i>
 	                                    </div>
-	                                    <div class="media-body">
-	                                        <div class="lv-title">Jonathan Morris</div>
+	                                    <div class="media-body" ng-click="open_chat_panel(user.user_id)">
+	                                        <div class="lv-title">{{user.first_name}} {{user.last_name}}</div>
 	                                        <small class="lv-small">Available</small>
 	                                    </div>
 	                                </div>
@@ -126,23 +127,24 @@
                         
 	                        <div class="sidebar-title">
 		                        <h3> <i class="fa fa-comments-o"></i> Latest Notes</h3>
-		                        <small><i class="fa fa-tim"></i> You have 10 new message.</small>
+		                        <small ng-if="unread_messages_arr.length>0"><i class="fa fa-tim"></i> You have {{unread_messages_arr.length}} new message.</small>
+		                        <small ng-if="unread_messages_arr.length==0"><i class="fa fa-tim"></i> You have no unread message.</small>
 		                    </div>
 		                    
-		                    <div class="sidebar-list enableTouchScroll">
+		                    <div class="sidebar-list enableTouchScroll" ng-if="unread_messages_arr.length>0">
                             <div class="sidebar-message">
-                                <a href="#">
+                                <a href="#" ng-repeat="unread_message in unread_messages_arr" ng-click="open_chat_panel(unread_message.user_id)">
                                     <div class="pull-left text-center">
-                                        <img alt="image" class="img-circle message-avatar" src="resources/images/chat/a1.jpg">
+                                        <img alt="image" class="img-circle message-avatar" ng-src="{{unread_message.profile_pic}}">
 
                                         <div class="m-t-xs">
                                             <i class="fa fa-star text-warning"></i>
                                             <i class="fa fa-star text-warning"></i>
                                         </div>
                                     </div>
-                                    <div class="media-body">There are many variations of passages of Lorem Ipsum available.
+                                    <div class="media-body">{{unread_message.chat_text}}
                                         <br>
-                                        <small class="text-muted">Today 4:21 pm</small>
+                                        <small class="text-muted">{{unread_message.chat_time}}</small>
                                     </div>
                                 </a>
                             </div>
@@ -203,7 +205,7 @@
     		
     		            </div></div>
     		            <div class="form-chat">
-    		                <div class="input-group input-group-sm"><input type="text" class="form-control"> <span class="input-group-btn"> <button class="btn btn-primary" type="button">Send
+    		                <div class="input-group input-group-sm"><input type="text" class="form-control" ng-change="chat_text_change(chat_text)" ng-model="chat_text"> <span class="input-group-btn"> <button class="btn btn-primary" type="button" ng-click="send_message()">Send
     		                </button> </span></div>
     		            </div>
     		

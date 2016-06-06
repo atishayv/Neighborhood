@@ -12,6 +12,9 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 @ServerEndpoint(value = "/messenger_socket/{user_id}")
 public class MessengerSocket {
 	
@@ -28,19 +31,35 @@ public class MessengerSocket {
 	@OnOpen
     public void onOpen(@PathParam("user_id") String user_id, Session session) {
         System.out.println("Connected ... " + session.getId() + "user_id  " +user_id);
-        active_clients.put(user_id, session);
+        active_clients.put(user_id.toString(), session);
         
     }
  
     @OnMessage
-    public String onMessage(@PathParam("user_id") String user_id, String message, Session session) throws IOException {
-    	System.out.println("Message :: " + message + "to " + user_id);
-    	if(active_clients.containsKey(user_id)){
-			Session client = active_clients.get(user_id);
+    public String onMessage(@PathParam("user_id") String user_id, String message, Session session) throws IOException, JSONException {
+    	System.out.println("active_clients :: " + active_clients);
+    	JSONObject message_obj = new JSONObject(message);
+    	System.out.println("Message :: " + message + "to " + message_obj.get("user_id_to"));
+    	if(active_clients.containsKey(message_obj.get("user_id_to").toString())){
+    		System.out.println("user_id : " + message_obj.get("user_id_to") + " is active");
+			Session client = active_clients.get(message_obj.get("user_id_to").toString());
 			client.getBasicRemote().sendText(message);
-			return "Successfully sent message to client";
+			JSONObject response = new JSONObject();
+			response.put("status", "success");
+			response.put("request_obj", message);
+			//send to original user thta successfully send message
+			Session client_from = active_clients.get(message_obj.get("user_id_from").toString());
+			client_from.getBasicRemote().sendText(response.toString());
+			return response.toString();
 		}else{
-			return "Client connection does not exist";
+			System.out.println("user_id : " + message_obj.get("user_id_to") + " is not active");
+			JSONObject response = new JSONObject();
+			response.put("status", "fail");
+			response.put("request_obj", message);
+			//send to original user that could not send message
+			Session client_from = active_clients.get(message_obj.get("user_id_from").toString());
+			client_from.getBasicRemote().sendText(response.toString());
+			return response.toString();
 		}
         
     }

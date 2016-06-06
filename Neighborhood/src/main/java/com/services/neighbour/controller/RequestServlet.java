@@ -17,6 +17,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.sql.*;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -24,6 +25,7 @@ import org.glassfish.tyrus.server.Server;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 
 
 
@@ -428,7 +430,7 @@ public class RequestServlet extends HttpServlet{
 				}else if(requestObject.getString("action").equalsIgnoreCase("get_unread_messages")){
 					String user_id_to = requestObject.getString("user_id_to");
 					
-					String sql = "SELECT * FROM CHAT_DATA,USER_DATA WHERE CHAT_DATA.user_id_to='"+user_id_to+"' AND CHAT_DATA.chat_status = 'unread' WHERE CHAT_DATA.user_id_from = USER_DATA.user_id GROUP BY CHAT_DATA.user_id_from";
+					String sql = "SELECT * FROM CHAT_DATA,USER_DATA WHERE CHAT_DATA.user_id_to='"+user_id_to+"' AND CHAT_DATA.chat_status = 'unread' GROUP BY CHAT_DATA.user_id_from";
 					
 				    stmt = connection.prepareStatement(sql);
 				    rs = stmt.executeQuery();
@@ -438,6 +440,44 @@ public class RequestServlet extends HttpServlet{
 				    
 			    	resp.setHeader("Cache-Control", "no-cache");
 					sendResponse(resp,dataArr.toString().getBytes("UTF-8"));
+				    	
+				}else if(requestObject.getString("action").equalsIgnoreCase("get_conversation_between_users")){
+					String user_id_to = requestObject.getString("user_id_to");
+					String user_id_from = requestObject.getString("user_id_from");
+					
+					String sql = "SELECT * FROM CHAT_DATA WHERE user_id_to='"+user_id_to+"' AND user_id_from='" + user_id_from+"' ORDER BY chat_time DESC";
+					
+				    stmt = connection.prepareStatement(sql);
+				    rs = stmt.executeQuery();
+				    JSONArray dataArr = convertToArray(rs);
+				    
+				    
+				    
+			    	resp.setHeader("Cache-Control", "no-cache");
+					sendResponse(resp,dataArr.toString().getBytes("UTF-8"));
+				    	
+				}else if(requestObject.getString("action").equalsIgnoreCase("add_chat_to_db")){
+					String chat_text = requestObject.getString("chat_text");
+					String chat_time = requestObject.getString("chat_time");
+					String chat_status = requestObject.getString("chat_status");
+					String user_id_to = requestObject.getString("user_id_to");
+					String user_id_from = requestObject.getString("user_id_from");
+					
+					String sql = "INSERT INTO CHAT_DATA (chat_text,chat_time,chat_status,user_id_to,user_id_from) VALUES ("+chat_text+","+chat_time+","+chat_status+","+user_id_to+","+user_id_from+")";
+					
+					
+					stmt = connection.prepareStatement(sql);
+				    rs = stmt.executeQuery();
+				    if (!rs.isBeforeFirst() ) {
+				    	String responseStr = "Something went wrong";
+			    		resp.setHeader("Cache-Control", "no-cache");
+						sendResponse(resp,responseStr.getBytes("UTF-8")); 
+				    }else{
+				    	String responseStr = "Successfully inserted data into chat table";
+				    	resp.setHeader("Cache-Control", "no-cache");
+						sendResponse(resp,responseStr.getBytes("UTF-8"));
+				    	
+				    }
 				    	
 				}else if(requestObject.getString("action").equalsIgnoreCase("get_active_users")){
 					MessengerSocket socket_instance = MessengerSocket.getInstance();
@@ -452,9 +492,7 @@ public class RequestServlet extends HttpServlet{
 					    stmt = connection.prepareStatement(sql);
 					    rs = stmt.executeQuery();
 					    JSONArray data_arr = convertToArray(rs);
-					    active_user_data.put(key, data_arr);
-				        
-				        active_users.put(active_user_data);
+				        active_users.put(data_arr);
 				    }
 				    resp.setHeader("Cache-Control", "no-cache");
 					sendResponse(resp,active_users.toString().getBytes("UTF-8"));
@@ -580,5 +618,13 @@ public class RequestServlet extends HttpServlet{
 	            //server.stop();
 	        }
 	 }
+	 
+	 
+	 public static void main(String[] args) {
+		HashMap<String, String> test = new HashMap<String, String>();
+		test.put("1", "Hello1");
+		test.put("2", "Hello2");
+		System.out.println(test.containsKey(1));
+	}
 
 }

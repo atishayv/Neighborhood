@@ -39,6 +39,49 @@ angular.module('neighborhood.messenger_service', [])
 				this.websocket = new WebSocket('ws://192.168.21.193:8025/MessengerApp/messenger_socket/'+user_id+'');
 //				this.websocket = new WebSocket('ws://192.168.21.193:8025/MessengerApp/messenger_socket');
 				
+				this.websocket.onmessage = function(event){
+					console.log(event.data);
+					var response = JSON.parse(event.data);
+					if(response.status == "success"){
+						//add that message to database
+						var req = {
+				  				 method: 'POST',
+				  				 url: deployment_location + '/Neighborhood/requestServlet',
+				  				 data: { 
+				  					 	action : 'add_chat_to_db',
+				  					 	user_id_to : response.request_obj.user_id_to,
+				  					 	user_id_from : response.request_obj.user_id_from,
+				  					 	chat_status : 'read',
+				  					 	chat_text : JSON.parse(response.request_obj).message,
+				  					 	chat_time : new Date().getTime()
+				  				 	   }
+				  				};
+					}else if(response.status == "fail"){
+						var req = {
+				  				 method: 'POST',
+				  				 url: deployment_location + '/Neighborhood/requestServlet',
+				  				 data: { 
+				  					 	action : 'add_chat_to_db',
+				  					 	user_id_to : response.request_obj.user_id_to,
+				  					 	user_id_from : response.request_obj.user_id_from,
+				  					 	chat_status : 'unread',
+				  					 	chat_text : JSON.parse(response.request_obj).message,
+				  					 	chat_time : new Date().getTime()
+				  				 	   }
+				  				};
+					}
+					
+					
+					$http(req).then(function(result){
+			   			console.log(result);
+			   		}, function(result){
+			   			console.log(result);
+			   		});
+				};
+			},
+			
+			send_message : function(message,user_id_to,user_id_from){
+				this.websocket.send(JSON.stringify({"message" : message,"user_id_to" : user_id_to,"user_id_from" : user_id_from}));
 			},
 	};
 	
